@@ -24,7 +24,7 @@ urlpatterns = [
 
 from django.views.generic import RedirectView
 urlpatterns += [
-    path('', RedirectView.as_view(url='accounts/login/', permanent=True)),
+    path('', RedirectView.as_view(url='game/', permanent=True)),
 ]
 
 

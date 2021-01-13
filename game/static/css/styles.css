@@ -1,0 +1,56 @@
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    background-color: teal;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+a {
+    color: rgb(33, 37, 41);
+}
+
+.flex-box {
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+}
+
+.sidebar {
+    flex: 2;
+    background-color: rgb(128, 128, 128);
+}
+
+.sidebar > ul {
+    margin-bottom: 2rem;
+}
+
+.sidebar > ul > li {
+    margin-bottom: 0.5rem;
+}
+
+.nav-title {
+    font-size: 1.5rem;
+}
+
+.main {
+    flex: 10;
+    background-color: black;
+    color: white;
+}
+
+.index {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.soft-padding {
+    padding: 0.5rem;
+}
