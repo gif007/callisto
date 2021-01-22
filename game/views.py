@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import MobileSuit
 
 # Create your views here.
 
@@ -7,7 +8,8 @@ def index(request):
 
 
 def workshop(request):
-    return render(request, 'workshop.html')
+    mechs = request.user.mobilesuit_set.all()
+    return render(request, 'workshop.html', {'mechs': mechs})
 
 
 def equipment(request):
