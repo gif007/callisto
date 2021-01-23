@@ -5,6 +5,7 @@ from django.contrib.auth.models import  User
 
 class MobileSuit(models.Model):
     """An object representing a mobile suit fitted with equipment"""
+    name = models.CharField(max_length=40, null=True)
     controller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     helm = models.ForeignKey('Helm', on_delete=models.SET_NULL, null=True, blank=True)
     chest = models.ForeignKey('Chest', on_delete=models.SET_NULL, null=True, blank=True)
@@ -12,6 +13,7 @@ class MobileSuit(models.Model):
     right_arm = models.ForeignKey('RightArm', on_delete=models.SET_NULL, null=True, blank=True)
     legs = models.ForeignKey('Legs', on_delete=models.SET_NULL, null=True, blank=True)
     modifiers = models.ManyToManyField('Modifier', blank=True)
+    active = models.BooleanField(default=False)
 
 
     def get_equipped(self):
@@ -51,7 +53,7 @@ class MobileSuit(models.Model):
 
 
     def __str__(self):
-        return 'A mobile suit belonging to %s' % self.controller
+        return self.name
 
 
 class Helm(models.Model):

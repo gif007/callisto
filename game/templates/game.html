@@ -2,37 +2,38 @@
 
 {% block content %}
 
-<header>
-{% block header %}
-<h1>Callisto</h1>
-{% endblock %}
+<header class='banner'>
+    {% block header %}
+    <h1>Callisto</h1>
+    {% endblock %}
 </header>
 
-<article class='flex-box'>
+<main class='flex-box'>
 
-<section class='sidebar soft-padding'>
-{% block sidebar %}
-<ul>
-    <li class='nav-title'>Deploy</li>
-    <li>Go to Outland</li>
-    <li>Go to Training Area</li>
-    <li>Exit to Workshop</li>
-</ul>
-<ul>
-    <li class='nav-title'>Workshop</li>
-    <li><a href='{% url "workshop" %}'>Status Bay</a></li>
-    <li><a href='{% url "equipment" %}'>Equipment</a></li>
-    <li><a href='{% url "store" %}'>Store</a></li>
-</ul>
-<a href='{% url "logout" %}'>Logout</a>
-{% endblock %}
-</section>
+    <section class='sidebar soft-padding'>
+        {% block sidebar %}
+        <ul>
+            <li class='nav-title'>Deploy</li>
+            <li><a href='{% url "deploy" %}'>Go to Outland</a></li>
+            <li>Go to Training Area</li>
+            <li>Exit to Workshop</li>
+        </ul>
+        <ul>
+            <li class='nav-title'>Customize</li>
+            <li><a href='{% url "workshop" %}'>Workshop</a></li>
+            <li><a href='{% url "equipment" %}'>Equipment</a></li>
+            <li><a href='{% url "store" %}'>Store</a></li>
+        </ul>
+        <p>User: {{user}}</p>
+        <a href='{% url "logout" %}'>Logout</a>
+        {% endblock %}
+    </section>
 
-<section class='main'>
-{% block main %}
-{% endblock %}
-</section>
+    <section class='main'>
+        {% block main %}
+        {% endblock %}
+    </section>
 
-</article>
+</main>
 
 {% endblock %}

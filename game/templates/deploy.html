@@ -1,0 +1,10 @@
+{% extends "game.html" %}
+
+{% block main %}
+    <div class='index'>
+        <h2>Deployed</h2>
+        <p>You have been deployed to the Outlands using {{mech}}.</p>
+        <p id='get_action' style='color: red;'>Continue</p>
+        <a href='{% url "workshop" %}'>Exit</a>
+    </div>
+{% endblock %}

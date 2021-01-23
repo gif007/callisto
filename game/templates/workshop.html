@@ -1,13 +1,30 @@
 {% extends "game.html" %}
 
 {% block main %}
-    <div class='index'>
-        <h2>Status Bay</h2>
-        <p>Check out the status on your mech!</p>
-        <ul>
-            {% for mech in mechs %}
-            <li>{{mech}}</li>
-            {% endfor %}
-        </ul>
+
+    <header class='section-header'>Workshop</header>
+
+    <div class='row'>
+
+        <div class='img-wrapper'><img></div>
+
+        <p class='workshop-desc'>This area has a blurb of information to introduce you to the workshop view</p>
+
     </div>
+
+    <h2>Here are your mechs:</h2>
+    <ul class='d-inlineblock'>
+        {% for mech in mechs %}
+            {% if mech.active %}
+            <li>
+                <div class='mech'>
+                    <p class='padding-bottom'><u>Active</u></p>
+                    <p>{{mech}}</p>
+                </div>
+            </li>
+            {% else %}
+            <li><div class='mech'>{{mech}}</div></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 {% endblock %}
