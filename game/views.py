@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import MobileSuit
 from django.http import JsonResponse
+from .functions import *
 
 # Create your views here.
 
@@ -10,12 +11,8 @@ def index(request):
 
 
 def workshop(request):
-    
-    mech = MobileSuit.objects.filter(
-        controller=User.objects.filter(
-        username=request.user.get_username()
-        ).get()
-        ).get()
+
+    mech = get_mech(MobileSuit, User, request)
 
     return render(request, 'workshop.html', {'mech': mech})
 
@@ -33,11 +30,7 @@ def store(request):
 from django.contrib.auth.models import  User
 def deploy(request):
 
-    mech = MobileSuit.objects.filter(
-        controller=User.objects.filter(
-        username=request.user.get_username()
-        ).get()
-        ).get()
+    mech = get_mech(MobileSuit, User, request)
 
     return render(request, 'deploy.html', {'mech': mech})
 
