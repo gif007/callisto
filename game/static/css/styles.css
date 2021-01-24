@@ -82,6 +82,7 @@ a {
     flex-flow: column;
     align-items: center;
     justify-content: center;
+    margin: 0 0.5rem;
 }
 
 .d-inlineblock > li {

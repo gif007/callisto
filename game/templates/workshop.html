@@ -13,18 +13,9 @@
     </div>
 
     <h2>Here are your mechs:</h2>
-    <ul class='d-inlineblock'>
-        {% for mech in mechs %}
-            {% if mech.active %}
-            <li>
-                <div class='mech'>
-                    <p class='padding-bottom'><u>Active</u></p>
-                    <p>{{mech}}</p>
-                </div>
-            </li>
-            {% else %}
-            <li><div class='mech'>{{mech}}</div></li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+
+        <div class='mech'>
+            <p>{{mech}}</p>
+        </div>
+
 {% endblock %}

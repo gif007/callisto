@@ -13,7 +13,6 @@ class MobileSuit(models.Model):
     right_arm = models.ForeignKey('RightArm', on_delete=models.SET_NULL, null=True, blank=True)
     legs = models.ForeignKey('Legs', on_delete=models.SET_NULL, null=True, blank=True)
     modifiers = models.ManyToManyField('Modifier', blank=True)
-    active = models.BooleanField(default=False)
 
 
     def get_equipped(self):

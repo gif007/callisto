@@ -3,8 +3,8 @@
 {% block main %}
     <div class='index'>
         <h2>Deployed</h2>
-        <p>You have been deployed to the Outlands using {{mech}}.</p>
-        <p id='get_action' style='color: red;'>Continue</p>
+        <p id='action-view'>You have been deployed to the Outlands using {{mech}}.</p>
+        <button id='get_action' style='color: red;'>Continue</button>
         <a href='{% url "workshop" %}'>Exit</a>
     </div>
 {% endblock %}

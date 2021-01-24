@@ -10,9 +10,14 @@ def index(request):
 
 
 def workshop(request):
-    mechs = request.user.mobilesuit_set.all()
+    
+    mech = MobileSuit.objects.filter(
+        controller=User.objects.filter(
+        username=request.user.get_username()
+        ).get()
+        ).get()
 
-    return render(request, 'workshop.html', {'mechs': mechs})
+    return render(request, 'workshop.html', {'mech': mech})
 
 
 def equipment(request):
@@ -25,24 +30,27 @@ def store(request):
     return render(request, 'store.html')
 
 
+from django.contrib.auth.models import  User
 def deploy(request):
-    mech = request.user.mobilesuit_set.filter(active=True).get()
+
+    mech = MobileSuit.objects.filter(
+        controller=User.objects.filter(
+        username=request.user.get_username()
+        ).get()
+        ).get()
 
     return render(request, 'deploy.html', {'mech': mech})
 
 
-def get_action(request):
-    actions = [
-        'A monster attacks!',
-        'Nothing happens...',
-        'You discover a cave!',
-    ]
+from .data_structures import actions
+def get_action(request, actions=actions):
 
     import random
-    action = actions[random.randint(0,2)]
+    action = random.choice(list(actions.keys()))
 
     data = {
-        'data': action
+        'text': actions[action]['text'],
+        'monster': actions[action]['monster'],
     }
 
     return JsonResponse(data)
