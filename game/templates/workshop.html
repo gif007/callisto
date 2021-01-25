@@ -2,12 +2,29 @@
 
 {% block main %}
 
-    <header class='section-header'>Workshop</header>
+    <header class='welcome-message'>Workshop</header>
 
-    <h2>Here are your mechs:</h2>
+    
 
-        <div class='mech'>
-            <p>{{mech}}</p>
+        <div class='mech-card'>
+            <div class='mech-equipment-and-stats-wrapper'>
+                <h2 class='mech-banner'>{{mech}}</h2>
+                <ul class='mech-equipped'>
+                    <li title='A piece of gear that equips to the top of the mobile suit. Provides armor and range of vision.'><span class='dotted-underline'>Helm:</span> {{mech.helm}}</li>
+                    <li title='A piece of gear that equips to the torso of the mobile suit. Provides armor.'><span class='dotted-underline'>Chest:</span> {{mech.chest}}</li>
+                    <li title='A weapon that is equipped over the left arm of the mobile suit.'><span class='dotted-underline'>Left Arm:</span> {{mech.left_arm}}</li>
+                    <li title='A weapon that is equipped over the right arm of the mobile suit.'><span class='dotted-underline'>Right Arm:</span> {{mech.right_arm}}</li>
+                    <li title='A piece of gear that equips over the legs of the mobile suit. Provides armor and speed.'><span class='dotted-underline'>Legs:</span> {{mech.legs}}</li>
+                </ul>
+
+                <h3 class='mech-banner'>Stats</h3>
+                <ul class='mech-stats'>
+                    <li title='Total firepower from all equipped weapons'><span class='dotted-underline'>Firepower:</span> {{mech.get_firepower_value}}</li>
+                    <li title='Total armor from all equipped gear'><span class='dotted-underline'>Armor:</span> {{mech.get_armor_value}}</li>
+                    <li title='Mobile suit speed'><span class='dotted-underline'>Speed:</span> {{mech.get_speed_value}}</li>
+                    <li title='Range of vision'><span class='dotted-underline'>Vision:</span> {{mech.get_sight_value}}</li>
+                </ul>
+            </div>
         </div>
 
 {% endblock %}

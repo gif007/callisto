@@ -8,3 +8,8 @@
         <a href='{% url "flee" %}'>Exit</a>
     </div>
 {% endblock %}
+
+{% block script %}
+{% load static %}
+<script src="{% static 'js/ajax.js' %}"></script>
+{% endblock %}

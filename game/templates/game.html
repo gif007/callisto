@@ -2,37 +2,45 @@
 
 {% block content %}
 
-<header class='banner'>
-    {% block header %}
-    <h1>Callisto</h1>
-    {% endblock %}
-</header>
+<main class='game-container'>
 
-<main class='flex-box'>
-
-    <section class='sidebar soft-padding'>
-        {% block sidebar %}
-        <ul>
-            <li class='nav-title'>Deploy</li>
-            <li><a href='{% url "deploy" %}'>Go to Outland</a></li>
-            <li>Go to Training Area</li>
-            <li>Exit to Workshop</li>
-        </ul>
-        <ul>
-            <li class='nav-title'>Customize</li>
-            <li><a href='{% url "workshop" %}'>Workshop</a></li>
-            <li><a href='{% url "equipment" %}'>Equipment</a></li>
-            <li><a href='{% url "store" %}'>Store</a></li>
-        </ul>
-        <p>User: {{user}}</p>
-        <a href='{% url "logout" %}'>Logout</a>
+    <header class='banner'>
+        {% block header %}
+        <h1>Callisto</h1>
         {% endblock %}
-    </section>
+    </header>
 
-    <section class='main'>
-        {% block main %}
-        {% endblock %}
-    </section>
+    <div class='row'>
+
+        <section class='sidebar'>
+            {% block sidebar %}
+            <nav class='navigation'>
+                <h2 class='link-header'>Deploy</h2>
+                <ul class='link-list'>
+                    <li><a href='{% url "deploy" %}'>Go to Outland</a></li>
+                    <li>Go to Training Area</li>
+                    <li>Exit to Workshop</li>
+                </ul>
+
+                <h2 class='link-header'>Customize</h2>
+                <ul class='link-list'>
+                    <li><a href='{% url "workshop" %}'>Workshop</a></li>
+                    <li><a href='{% url "equipment" %}'>Equipment</a></li>
+                    <li><a href='{% url "store" %}'>Store</a></li>
+                </ul>
+
+                <p>User: {{user}}</p>
+                <a href='{% url "logout" %}'>Logout</a>
+                {% endblock %}
+            </nav>
+        </section>
+
+        <section class='main'>
+            {% block main %}
+            {% endblock %}
+        </section>
+
+    </div>
 
 </main>
 

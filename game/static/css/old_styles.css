@@ -1,0 +1,112 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: teal;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+a {
+    color: rgb(33, 37, 41);
+}
+
+.flex-box {
+    display: flex;
+    flex-direction: row;
+    min-height: 600px;
+}
+
+.sidebar {
+    flex: 2;
+    background-color: rgb(128, 128, 128);
+}
+
+.sidebar > ul {
+    margin-bottom: 2rem;
+}
+
+.sidebar > ul > li {
+    margin-bottom: 0.5rem;
+}
+
+.nav-title {
+    font-size: 1.5rem;
+}
+
+.main {
+    flex: 10;
+    background-color: black;
+    color: white;
+}
+
+.index {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.soft-padding {
+    padding: 0.5rem;
+}
+
+.img-wrapper {
+    height: 200px;
+    width: 200px;
+    border: 1px solid white;
+    flex-shrink: 0;
+}
+
+.clear-float {
+    clear: both;
+}
+
+.mech {
+    height: 200px;
+    width: 200px;
+    border: 1px solid white;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem;
+}
+
+.d-inlineblock > li {
+    display: inline-block;
+}
+
+.section-header {
+    padding: 1rem;
+    border-bottom: 1px solid white;
+    text-transform: uppercase;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.workshop-desc {
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
+    align-self: flex-start;
+}
+
+.padding-bottom {
+    padding-bottom: 0.5rem;
+}

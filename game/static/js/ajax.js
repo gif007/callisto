@@ -1,12 +1,6 @@
 $(document).ready(function(){
     // Page has loaded
 
-    // $("button#get_action").click(function(){
-    //     $.get('/game/get_action/', function(data, status){
-    //         performAction(data);
-    //     });
-    // });
-
     $("button#get_action").click(function(){
         getAction();
         });

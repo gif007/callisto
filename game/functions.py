@@ -17,7 +17,9 @@ def randomAction():
     action = random.choice(actions)
 
     if action == 'Battle':
-        enemy = random.randint(1,Enemy.objects.count())
+        enemy = Enemy.objects.filter(
+        id=random.randint(1,Enemy.objects.count())
+        ).get()
     else:
         enemy = None
 
