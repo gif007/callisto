@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.models import  User
 from django.contrib.auth.decorators import permission_required
+from django.urls import reverse
 
 from .models import MobileSuit, Enemy
 from .functions import *
-from .data_structures import spam
+
 
 """
 After testing is complete you will want to prepend each of these views with
@@ -31,41 +32,42 @@ with raise_exception=True as shown:
 # Create your views here.
 
 def index(request):
-
+    """Literaly nothing"""
     return render(request, "game.html")
 
 
 def workshop(request):
-
-    mech = get_mech_by_user(MobileSuit, User, request)
+    """The workshop area where a user may look at their mech in closer detail"""
+    mech = getMechByUser(MobileSuit, User, request)
 
     return render(request, 'workshop.html', {'mech': mech})
 
 
 def equipment(request):
-
+    """An equipment area where a user may look at all of their equipment
+    and perform repairs if necessary"""
     return render(request, 'equipment.html')
 
 
 def store(request):
-
+    """A place where users may purchase new equipment"""
     return render(request, 'store.html')
 
 
 def deploy(request):
-
-    mech = get_mech_by_user(MobileSuit, User, request)
+    """The launching area for patrols"""
+    mech = getMechByUser(MobileSuit, User, request)
     request.session['mech'] = mech.id
     request.session['deployed'] = True
 
     return render(request, 'deploy.html', {'mech': mech})
 
 
-def get_action(request, action=spam):
-
+def get_action(request, action=randomAction):
+    """Returns a JSON object containing a random patrol action"""
     # import random
     # action = random.choice(list(actions.values()))
-    action = spam()
+    action = randomAction()
     mech = MobileSuit.objects.filter(id=request.session['mech']).get()
 
     try:
@@ -80,3 +82,10 @@ def get_action(request, action=spam):
     }
 
     return JsonResponse(data)
+
+
+def flee(request):
+    """Defines a redirect for leaving the outlands"""
+    request.session['deployed'] = False
+    
+    return HttpResponseRedirect(reverse('workshop'))

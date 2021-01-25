@@ -27,7 +27,7 @@ $(document).ready(function(){
             alert('You shoot bullets!!!');
         });
         $('button#flee').click(function(){
-            window.location = '/game/workshop';
+            window.location = '/game/deploy/flee';
         });
     };
 
