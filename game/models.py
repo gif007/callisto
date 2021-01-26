@@ -127,6 +127,11 @@ class Modifier(models.Model):
 class Enemy(models.Model):
     """An enemy that may be encountered while patrolling"""
     name = models.CharField(max_length=40, null=True)
+    max_hp = models.IntegerField(default=0)
+    current_hp = models.IntegerField(default=0)
+    firepower = models.IntegerField(default=0)
+    armor = models.IntegerField(default=0)
+
 
     def __str__(self):
         """Returns a string the represent the current instance"""
