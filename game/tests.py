@@ -51,12 +51,18 @@ class MobileSuitModelTests(TestCase):
 
 
     def test_get_speed_value_with_empty_slot(self):
-        """Tests that get_speed_value returns 0 when no legs are equipped"""
+        """Tests that get_speed_value returns properly even with empty slot"""
         suit = MobileSuit(name='eggs')
         self.assertIs(suit.get_speed_value(), 0)
+        legs = Legs(name='spam', speed=1)
+        suit.legs = legs
+        self.assertIs(suit.get_speed_value(), 1)
 
 
     def test_get_sight_value_with_empty_slot(self):
-        """Tests that get_speed_sight returns 0 when no helm is equipped"""
+        """Tests that get_speed_sight returns properly even with empty slot"""
         suit = MobileSuit(name='eggs')
         self.assertIs(suit.get_sight_value(), 0)
+        helm = Helm(name='spam', sight=1)
+        suit.helm = helm
+        self.assertIs(suit.get_sight_value(), 1)

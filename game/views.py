@@ -5,7 +5,7 @@ from django.contrib.auth.models import  User
 from django.contrib.auth.decorators import permission_required
 from django.urls import reverse
 
-from .models import MobileSuit, Enemy
+from .models import MobileSuit, Enemy, Helm, Chest, LeftArm, RightArm, Legs, Modifier
 from .functions import *
 
 """
@@ -29,23 +29,48 @@ with raise_exception=True as shown:
 def index(request):
     """Literaly nothing"""
     request.session['deployed'] = False
+
     return render(request, "game.html")
 
 
 @login_required
 def workshop(request):
     """The workshop area where a user may look at their mech in closer detail"""
-    mech = getMechByUser(MobileSuit, User, request)
+    mech = getMechByUser(request)
     request.session['deployed'] = False
+
     return render(request, 'workshop.html', {'mech': mech})
 
 
 @login_required
-def equipment(request):
+def equipment_all(request):
     """An equipment area where a user may look at all of their equipment
     and perform repairs if necessary"""
     request.session['deployed'] = False
-    return render(request, 'equipment.html')
+
+    return render(request, 'equipment-all.html')
+
+
+@login_required
+def equipment(request, typ, pk):
+    """Shows an individual piece of equipment"""
+
+    types = {
+        'helm': Helm,
+        'chest': Chest,
+        'leftarm': LeftArm,
+        'rightarm': RightArm,
+        'legs': Legs,
+        'modifier': Modifier,
+    }
+
+    piece = types[typ].objects.filter(id=pk).get()
+    context = {
+        'piece': piece,
+        'type': typ,
+    }
+    
+    return render(request, 'equipment.html', context=context)
 
 
 @login_required
@@ -58,7 +83,7 @@ def store(request):
 @login_required
 def deploy(request):
     """The launching area for patrols"""
-    mech = getMechByUser(MobileSuit, User, request)
+    mech = getMechByUser(request)
     request.session['mech'] = mech.id
     request.session['deployed'] = True
     request.session['enemy'] = None

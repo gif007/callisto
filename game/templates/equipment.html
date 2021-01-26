@@ -1,8 +1,27 @@
 {% extends "game.html" %}
 
 {% block main %}
-    <div class='index'>
-        <h2>Equipment Area</h2>
-        <p>Look at the status on your equipment.  Make repairs, swap items, perform upgrades.</p>
+    <div style='margin: 1rem;'>
+        <p>Type: {{type|title}}</p>
+        <p>Name of piece: {{piece}}</p>
+
+        <br />
+        <p style='font-style: italic;'>{{piece.desc}}</p>
+        <br />
+
+        <p>Armor: {{piece.armor}}</p>
+
+        {% if piece.firepower %}
+        <p>Firepower: {{piece.firepower}}</p>
+        {% endif %}
+
+        {% if piece.sight %}
+        <p>Vision: {{piece.sight}}</p>
+        {% endif %}
+        
+        {% if piece.speed %}
+        <p>Speed: {{piece.speed}}</p>
+        {% endif %}
     </div>
+
 {% endblock %}

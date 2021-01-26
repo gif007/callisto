@@ -1,15 +1,28 @@
 {% extends "game.html" %}
 
 {% block main %}
-    <div class='index'>
-        <h2>Deployed</h2>
-        <p id='action-view'>You have been deployed to the Outlands using {{mech}}.</p>
-        <button id='get_action' style='color: red;'>Continue</button>
-        <a href='{% url "flee" %}'>Exit</a>
+    <div class='deployment-container'>
+        <div class='deployed-card'>
+            <div class='row'>
+                <div class='deployed-card-image'></div>
+                <p class='deployed-card-text'>You have been deployed to the Outlands.</p>
+            </div>
+            
+            <div class='deployed-card-button-group'>
+                <button id='get_action'>Continue</button>
+                <button id=exit-to-workshop>Exit</button>
+            </div>
+            
+        </div>
     </div>
 {% endblock %}
 
 {% block script %}
 {% load static %}
 <script src="{% static 'js/ajax.js' %}"></script>
+<script>
+    document.querySelector('#exit-to-workshop').addEventListener('click', function(){
+        window.location = '/game/deploy/flee';
+    });
+</script>
 {% endblock %}

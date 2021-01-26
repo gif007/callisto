@@ -64,6 +64,7 @@ class MobileSuit(models.Model):
 class Helm(models.Model):
     """A piece of equipment to be equipped to the head slot"""
     name = models.CharField(max_length=40, null=True)
+    desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
     sight = models.IntegerField(default=0)
 
@@ -75,6 +76,7 @@ class Helm(models.Model):
 class Chest(models.Model):
     """A piece of equipment to be worn in the chest slot"""
     name = models.CharField(max_length=40, null=True)
+    desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
 
     def __str__(self):
@@ -85,6 +87,7 @@ class Chest(models.Model):
 class LeftArm(models.Model):
     """The left arm weapon"""
     name = models.CharField(max_length=40, null=True)
+    desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
     firepower = models.IntegerField(default=0)
 
@@ -96,6 +99,7 @@ class LeftArm(models.Model):
 class RightArm(models.Model):
     """The right arm weapon"""
     name = models.CharField(max_length=40, null=True)
+    desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
     firepower = models.IntegerField(default=0)
 
@@ -107,6 +111,7 @@ class RightArm(models.Model):
 class Legs(models.Model):
     """A piece of equipment that is responsible for moving the suit"""
     name = models.CharField(max_length=40, null=True)
+    desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
     speed = models.IntegerField(default=0)
 
@@ -118,6 +123,7 @@ class Legs(models.Model):
 class Modifier(models.Model):
     """A piece of equipment that may grant user additional abilities"""
     name = models.CharField(max_length=40, null=True)
+    desc = models.TextField(null=True)
 
     def __str__(self):
         """Returns a string the represent the current instance"""
@@ -127,6 +133,7 @@ class Modifier(models.Model):
 class Enemy(models.Model):
     """An enemy that may be encountered while patrolling"""
     name = models.CharField(max_length=40, null=True)
+    desc = models.TextField(null=True)
     max_hp = models.IntegerField(default=0)
     current_hp = models.IntegerField(default=0)
     firepower = models.IntegerField(default=0)

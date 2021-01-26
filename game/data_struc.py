@@ -5,7 +5,7 @@ stored in the database
 
 # A list of actions that can occur while patrolling the outlands
 actions = [
-    'Nothing',
+    'Nothing happens',
     'Battle',
-    'Discovery',
+    'You have made a discovery',
     ]

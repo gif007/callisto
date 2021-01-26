@@ -1,9 +1,9 @@
 import random
-from .models import Enemy
+from .models import Enemy, User, MobileSuit
 from .data_struc import actions
 
 
-def getMechByUser(MobileSuit, User, request):
+def getMechByUser(request):
     """Returns the mobile suit of the logged in user"""
     return MobileSuit.objects.filter(
         controller=User.objects.filter(
