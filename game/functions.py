@@ -27,3 +27,18 @@ def randomAction():
         'text': action,
         'enemy': enemy,
     }
+
+
+
+from .models import MobileSuit
+
+def get_stats(id):
+    """Intended to be used within a shell session to quickly get stats on a suit"""
+    suit = MobileSuit.objects.filter(id=id).get()
+    print('Name: %s' % suit.name)
+    print('Health: %s/%s' % (suit.current_hp, suit.max_hp))
+    print('Controller: %s' % suit.controller)
+    print('Firepower: %s' % suit.get_firepower_value())
+    print('Armor: %s' % suit.get_armor_value())
+    print('Speed: %s' % suit.get_speed_value())
+    print('Vision: %s' % suit.get_sight_value())

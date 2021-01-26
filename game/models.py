@@ -6,6 +6,8 @@ from django.contrib.auth.models import  User
 class MobileSuit(models.Model):
     """An object representing a mobile suit fitted with equipment"""
     name = models.CharField(max_length=40, null=True)
+    max_hp = models.IntegerField(default=0)
+    current_hp = models.IntegerField(default=0)
     controller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     helm = models.ForeignKey('Helm', on_delete=models.SET_NULL, null=True, blank=True)
     chest = models.ForeignKey('Chest', on_delete=models.SET_NULL, null=True, blank=True)
@@ -37,7 +39,7 @@ class MobileSuit(models.Model):
 
     def get_speed_value(self):
         """Returns suit speed"""
-        return self.legs.speed
+        return self.legs.speed if self.legs else 0
 
 
     def get_armor_value(self):
@@ -51,7 +53,7 @@ class MobileSuit(models.Model):
 
     def get_sight_value(self):
         """Return field visibility"""
-        return self.helm.sight
+        return self.helm.sight if self.helm else 0
 
 
     def __str__(self):

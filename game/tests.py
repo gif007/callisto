@@ -48,3 +48,15 @@ class MobileSuitModelTests(TestCase):
 
         suit.legs = legs
         self.assertIs(suit.get_armor_value(), 5)
+
+
+    def test_get_speed_value_with_empty_slot(self):
+        """Tests that get_speed_value returns 0 when no legs are equipped"""
+        suit = MobileSuit(name='eggs')
+        self.assertIs(suit.get_speed_value(), 0)
+
+
+    def test_get_sight_value_with_empty_slot(self):
+        """Tests that get_speed_sight returns 0 when no helm is equipped"""
+        suit = MobileSuit(name='eggs')
+        self.assertIs(suit.get_sight_value(), 0)

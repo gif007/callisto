@@ -8,12 +8,6 @@ from django.urls import reverse
 from .models import MobileSuit, Enemy
 from .functions import *
 
-
-"""
-After testing is complete you will want to prepend each of these views with
-the @login_required decorator
-"""
-
 """
 How to use the permissions decorator:
 @permission_required('app.permission_name')
@@ -46,6 +40,7 @@ def workshop(request):
     return render(request, 'workshop.html', {'mech': mech})
 
 
+@login_required
 def equipment(request):
     """An equipment area where a user may look at all of their equipment
     and perform repairs if necessary"""
@@ -53,6 +48,7 @@ def equipment(request):
     return render(request, 'equipment.html')
 
 
+@login_required
 def store(request):
     """A place where users may purchase new equipment"""
     request.session['deployed'] = False
@@ -65,6 +61,7 @@ def deploy(request):
     mech = getMechByUser(MobileSuit, User, request)
     request.session['mech'] = mech.id
     request.session['deployed'] = True
+    request.session['enemy'] = None
 
     return render(request, 'deploy.html', {'mech': mech})
 
