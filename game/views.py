@@ -120,3 +120,20 @@ def flee(request):
     request.session['enemy'] = None
     
     return HttpResponseRedirect(reverse('workshop'))
+
+
+@login_required
+def attack(request):
+    """Beast mode"""
+    mech = MobileSuit.objects.filter(id=request.session['mech']).get()
+    enemy = Enemy.objects.filter(id=request.session['enemy']).get()
+
+    mech_health = '%s/%s' % (mech.current_hp, mech.max_hp)
+    enemy_health = '5/5'
+
+    data = {
+        'mech_health': mech_health,
+        'enemy_': enemy_health,
+    }
+
+    return JsonResponse(data)

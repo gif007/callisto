@@ -17,11 +17,23 @@ $(document).ready(function(){
         // console.log(action);
     };
 
+    function performAttack(action) {
+        // $('#attack').remove();
+        // $('#flee').remove();
+        // $('.deployed-card-text').text(action['text']);
+        
+        // if (action['enemy']) {
+        //     $('#get_action').remove();
+        //     battle(action);
+        // };
+        console.log(action);
+    };
+
     function battle(action) {
         $('.deployed-card-text').text(`You have engaged in combat with ${action['enemy']}`);
         $('.deployed-card-button-group').prepend(`<button id='attack'>Attack!</button><button id='flee'>Flee!</button>`);
         $('button#attack').click(function(){
-            alert('You shoot bullets!!!');
+            attack();
         });
         $('button#flee').click(function(){
             window.location = '/game/deploy/flee';
@@ -37,7 +49,20 @@ $(document).ready(function(){
             };
         };
 
-        xhttp.open('GET', '/game/get_action/', true);
+        xhttp.open('GET', '/game/deploy/get_action/', true);
+        xhttp.send();
+    };
+
+    function attack() {
+        let xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                performAttack(JSON.parse(this.responseText));
+            };
+        };
+
+        xhttp.open('GET', '/game/deploy/attack', true);
         xhttp.send();
     };
     

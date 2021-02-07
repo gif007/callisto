@@ -9,6 +9,7 @@ urlpatterns = [
     path('workshop/equipment/<str:typ>/<int:pk>', views.equipment, name='equipment'),
     path('workshop/store/', views.store, name='store'),
     path('deploy/', views.deploy, name='deploy'),
-    path('get_action/', views.get_action, name='get-action'),
+    path('deploy/get_action/', views.get_action, name='get-action'),
     path('deploy/flee/', views.flee, name='flee'),
+    path('deploy/attack/', views.attack, name='attack'),
 ]
