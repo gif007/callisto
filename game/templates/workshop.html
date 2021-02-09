@@ -5,8 +5,9 @@
     <header class='welcome-message'>Workshop</header>
         <div class='mech-card'>
 
-            <h2 class='mech-banner'>{{mech}}</h2>
+            <h2 class='mech-banner'>MECH</h2>
             <ul class='mech-equipped'>
+                <li>Name: {{mech}}</li>
                 <li title='A piece of gear that equips to the top of the mobile suit. Provides armor and range of vision.'>
                     <span class='dotted-underline'>Helm:</span> <a href="{% url 'equipment' 'helm' mech.helm.id %}">{{mech.helm}}</a>
                 </li>
