@@ -1,4 +1,4 @@
-# MDN Local Library
+# Callisto
 
 This project is a web based text based adventure game written using the [Django](https://www.djangoproject.com/) web framework. It utilizes many of Django's built in classes and functions to create a fully functional dynamic website with data persistence, user authentication, views and many other features.  It also utilizes the XMLHttpRequest API to make ajax calls to the server followed by manipulation of the DOM.
 
