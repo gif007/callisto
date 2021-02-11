@@ -4,11 +4,24 @@
     <div class='deployment-container'>
         <div class='deployed-card'>
             <div class='row'>
-                <div class='deployed-card-image'></div>
-                <p class='deployed-card-text'>You have been deployed to the Outlands.</p>
+                <div class='deployed-card-image'><img src='' id='img' /></div>
+                <h2 id='title'></h2>
+                <p class='deployed-card-text' id='desc'>You have been deployed to the Outlands.</p>
+                <p id='discovered'></p>
+            </div>
+
+            <div class='arena'>
+                <div id='enemy'></div>
+                <div id='mech'></div>
+            </div>
+
+            <div class='loot'>
+                <ul id='lootinv'>
+
+                </ul>
             </div>
             
-            <div class='deployed-card-button-group'>
+            <div class='deployed-card-button-group' id='btngrp'>
                 <button id='get_action'>Continue</button>
                 <button id=exit-to-workshop>Exit</button>
             </div>
