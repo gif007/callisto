@@ -88,4 +88,4 @@ def deploy(request):
     request.session['deployed'] = True
     request.session['enemy'] = None
 
-    return render(request, 'deploy.html', {'mech': mech})
+    return render(request, 'deploy.html')

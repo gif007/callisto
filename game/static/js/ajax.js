@@ -2,7 +2,23 @@ $(document).ready(function(){
     // Page has loaded
 
     $("button#get_action").click(function(){
+        // This is the getRandomEvent function of the Continue button
         getAction();
+
+        function getAction() {
+            let xhttp = new XMLHttpRequest();
+    
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    performAction(JSON.parse(this.responseText));
+                    // console.log(JSON.parse(this.responseText));
+                   
+                };
+            };
+    
+            xhttp.open('GET', '/game/deploy/get_action/', true);
+            xhttp.send();
+        };
         });
 
     function performAction(action) {
@@ -40,18 +56,7 @@ $(document).ready(function(){
         });
     };
 
-    function getAction() {
-        let xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                performAction(JSON.parse(this.responseText));
-            };
-        };
-
-        xhttp.open('GET', '/game/deploy/get_action/', true);
-        xhttp.send();
-    };
+    
 
     function attack() {
         let xhttp = new XMLHttpRequest();
