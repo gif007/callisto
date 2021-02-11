@@ -3,9 +3,8 @@ $(document).ready(function(){
 
     $("button#get_action").click(function(){
         // This is the getRandomEvent function of the Continue button
-        getAction();
-
-        function getAction() {
+    
+        let getAction = function () {
             let xhttp = new XMLHttpRequest();
     
             xhttp.onreadystatechange = function() {
@@ -18,19 +17,19 @@ $(document).ready(function(){
     
             xhttp.open('GET', '/game/deploy/get_action/', true);
             xhttp.send();
-        };
+        }();
         });
 
     function performAction(action) {
-        $('#attack').remove();
-        $('#flee').remove();
-        $('.deployed-card-text').text(action['text']);
+        // $('#attack').remove();
+        // $('#flee').remove();
+        // $('.deployed-card-text').text(action['text']);
         
-        if (action['enemy']) {
-            $('#get_action').remove();
-            battle(action);
-        };
-        // console.log(action);
+        // if (action['enemy']) {
+        //     $('#get_action').remove();
+        //     battle(action);
+        // };
+        console.log(action);
     };
 
     function performAttack(action) {

@@ -4,8 +4,10 @@ stored in the database
 """
 
 # A list of actions that can occur while patrolling the outlands
-actions = [
-    'Nothing happens',
-    'Battle',
-    'You have made a discovery',
+from .models import EventNothing, EventDiscovery, EventBattle
+
+events = [
+    EventNothing,
+    EventDiscovery,
+    EventBattle,
     ]

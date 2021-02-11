@@ -29,6 +29,7 @@ with raise_exception=True as shown:
 def index(request):
     """Literaly nothing"""
     request.session['deployed'] = False
+    request.session['enemy'] = None
 
     return render(request, "game.html")
 
@@ -36,8 +37,14 @@ def index(request):
 @login_required
 def workshop(request):
     """The workshop area where a user may look at their mech in closer detail"""
-    mech = getMechByUser(request)
+    try:
+        mech = getMechByUser(request)
+    
+    except:
+        mech = None
+
     request.session['deployed'] = False
+    request.session['enemy'] = None
 
     return render(request, 'workshop.html', {'mech': mech})
 
@@ -47,6 +54,7 @@ def equipment_all(request):
     """An equipment area where a user may look at all of their equipment
     and perform repairs if necessary"""
     request.session['deployed'] = False
+    request.session['enemy'] = None
 
     return render(request, 'equipment-all.html')
 
@@ -54,6 +62,8 @@ def equipment_all(request):
 @login_required
 def equipment(request, typ, pk):
     """Shows an individual piece of equipment"""
+    request.session['deployed'] = False
+    request.session['enemy'] = None
 
     types = {
         'helm': Helm,
@@ -77,13 +87,19 @@ def equipment(request, typ, pk):
 def store(request):
     """A place where users may purchase new equipment"""
     request.session['deployed'] = False
+    request.session['enemy'] = None
+
     return render(request, 'store.html')
 
 
 @login_required
 def deploy(request):
     """The launching area for patrols"""
-    mech = getMechByUser(request)
+    try:
+        mech = getMechByUser(request)
+    except:
+        return HttpResponseRedirect(reverse('workshop'))
+
     request.session['mech'] = mech.id
     request.session['deployed'] = True
     request.session['enemy'] = None

@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseRedirect
-# from django.contrib.auth.models import  User
-# from django.contrib.auth.decorators import permission_required
 from django.urls import reverse
 
 from .models import MobileSuit, Enemy, Helm, Chest, LeftArm, RightArm, Legs, Modifier
@@ -15,16 +13,14 @@ def get_action(request, action=randomAction):
         return HttpResponseRedirect(reverse('deploy'))
 
     action = action()
-    mech = MobileSuit.objects.filter(id=request.session['mech']).get()
-    enemy = action['enemy']
-    
-    if enemy:
-        request.session['enemy'] = enemy.id
+
+    try:
+        request.session['enemy'] = action.enemy.id
+    except:
+        pass
 
     data = {
-        'text': action['text'],
-        'enemy': enemy.name if enemy else enemy,
-        'mech': mech.name
+        'action': action.serialize(),
     }
 
     return JsonResponse(data)
@@ -32,7 +28,7 @@ def get_action(request, action=randomAction):
 
 @login_required
 def attack(request):
-    """Beast mode"""
+    """Initiate an attack round between mech and enemy"""
     mech = MobileSuit.objects.filter(id=request.session['mech']).get()
     enemy = Enemy.objects.filter(id=request.session['enemy']).get()
 
@@ -41,7 +37,8 @@ def attack(request):
 
     data = {
         'mech_health': mech_health,
-        'enemy_': enemy_health,
+        'enemy_health': enemy_health,
+        'enemy': enemy.name
     }
 
     return JsonResponse(data)

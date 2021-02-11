@@ -1,6 +1,5 @@
 import random
-from .models import Enemy, User, MobileSuit
-from .data_struc import actions
+from .models import Enemy, User, MobileSuit, EventBattle, EventDiscovery, EventNothing
 
 
 def getMechByUser(request):
@@ -14,19 +13,21 @@ def getMechByUser(request):
 
 def randomAction():
     """Returns a random action that occurs on patrol"""
-    action = random.choice(actions)
-
-    if action == 'Battle':
-        enemy = Enemy.objects.filter(
-        id=random.randint(1,Enemy.objects.count())
-        ).get()
+    num = random.randint(1, 100)
+    if num <= 60:
+        event = random.choice(EventNothing.objects.all())
+    elif num <= 70:
+        event = random.choice(EventDiscovery.objects.all())
     else:
-        enemy = None
+        event = EventBattle(
+            name='You encounter an enemy!',
+            desc='You may choose to engage the enemy or run away',
+            enemy=random.choice(Enemy.objects.all())
+            )
 
-    return {
-        'text': action,
-        'enemy': enemy,
-    }
+    action = event
+
+    return action
 
 
 

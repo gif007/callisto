@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import  User
 
 from .mechmodels import *
+from .eventmodels import *
 
 # Create your models here.
 
@@ -21,6 +22,3 @@ class Enemy(models.Model):
         return self.name
 
 
-class Event(models.Model):
-    """An event that occurs while patrolling the outlands"""
-    pass

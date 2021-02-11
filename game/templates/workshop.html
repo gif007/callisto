@@ -3,8 +3,8 @@
 {% block main %}
 
     <header class='welcome-message'>Workshop</header>
+    {% if mech %}
         <div class='mech-card'>
-
             <h2 class='mech-banner'>MECH</h2>
             <ul class='mech-equipped'>
                 <li>Name: {{mech}}</li>
@@ -33,7 +33,7 @@
                 <li title='Mobile suit speed'><span class='dotted-underline'>Speed:</span> {{mech.get_speed_value}}</li>
                 <li title='Range of vision'><span class='dotted-underline'>Vision:</span> {{mech.get_sight_value}}</li>
             </ul>
-
         </div>
+        {% endif %}
 
 {% endblock %}
