@@ -3,32 +3,36 @@
 {% block main %}
     <div class='Deployed'>
         <div class='DeployedCard'>
-            <div class='row'>
-                <div class='deployed-card-image'><img src='' id='img' /></div>
-                <div class='deployed-card-message'>
-                    <h2 id='title'>Deployed</h2>
-                    <p class='deployed-card-text' id='desc'>You have been deployed to the Outlands.</p>
-                    <p id='discovered'>Nothing has happened yet</p>
+
+            <div class='row' id='header'>
+                <div class='DeployedCardImage'><img src='' id='img' /></div>
+                <div class='DeployedCardMessage'>
+                    <h2 class='DeployedCardTitle' id='title'>Deployed</h2>
+                    <p class='DeployedCardText' id='desc'>You have been deployed to the Outlands.</p>
                 </div>
             </div>
 
-            <div class='row'>
-                <div class='arena'>
-                    <div id='enemy'>Enemy!</div>
-                    <div id='mech'>Mech!</div>
+            <div id='view' class='row'>
+                <div class='Arena'>
+                    <!-- <div id='enemy'>Enemy!</div>
+                    <div id='mech'>Mech!</div> -->
                 </div>
 
-                <div class='loot'>
+                <div class='Loot'>
                     <ul id='lootinv'>
-
+                        <!-- <li>Coins</li>
+                        <li>Leather scraps</li> -->
                     </ul>
                 </div>
             </div>
             
-            
-            <div class='deployed-card-button-group' id='btngrp'>
-                <button id='get_action'>Continue</button>
-                <button id=exit-to-workshop>Exit</button>
+            <div class='DeployedCardButtonGroup' id='btngrp'>
+
+                <div class='ActionButtons'>
+                    <button id='continue'>Continue</button>
+                </div>
+
+                <button id=exit>Exit</button>
             </div>
             
         </div>
@@ -39,7 +43,7 @@
 {% load static %}
 <script src="{% static 'js/ajax.js' %}"></script>
 <script>
-    document.querySelector('#exit-to-workshop').addEventListener('click', function(){
+    document.querySelector('#exit').addEventListener('click', function(){
         window.location = '/game/deploy/flee';
     });
 </script>

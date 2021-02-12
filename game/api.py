@@ -33,7 +33,7 @@ def attack(request):
     enemy = Enemy.objects.filter(id=request.session['enemy']).get()
 
     mech_health = '%s/%s' % (mech.current_hp, mech.max_hp)
-    enemy_health = '5/5'
+    enemy_health = '%s/%s' % (enemy.current_hp, enemy.max_hp)
 
     data = {
         'mech_health': mech_health,

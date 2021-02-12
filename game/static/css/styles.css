@@ -5,6 +5,7 @@ html {
     height: 100%;
     box-sizing: border-box;
     font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 *, *:before, *:after {
@@ -65,7 +66,7 @@ main.MainView {
 
 .row {
     display: flex;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 }
 
 .dotted-underline {
@@ -105,58 +106,76 @@ main.MainView {
 
 /* Deployment / Outlands */
 
-.Deployed {
+div.Deployed {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
 }
 
-.DeployedCard {
+div.DeployedCard {
     width: 500px;
     height: 400px;
     display: flex;
     flex-flow: column;
+    background-color: lightgray;
+    border-radius: 1rem;
 }
 
-.deployed-card-image {
+div#header {
+    height: 200px;
+}
+
+div#view {
+    flex-grow: 1;
+}
+
+div.DeployedCardImage {
     width: 150px;
     height: 150px;
     border: 1px solid black;
-    margin: 1rem;;
+    margin: 1rem;
     flex-shrink: 0;
 }
 
-.deployed-card-message {
+div.DeployedCardMessage {
     padding: 1rem;
 }
 
-.deployed-card-text {
+h2.DeployedCardTitle {
+    font-size: 1.125rem;
+}
+
+p.DeployedCardText {
     margin: 1rem 0;
 }
 
-div.arena {
+div.Arena {
+    display: flex;
+    flex: 0;
+}
+
+div.Loot {
+    display: flex;
+    flex: 0;
+}
+
+div.DeployedCardButtonGroup {
+    background-color: grey;
+    border-radius: 0 0 1rem 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+div.ActionButtons {
     display: flex;
 }
 
-.deployed-card-button-group {
-    border: 1px dashed black;
-    border-radius: 16px;
-    padding: 1rem;
+div.ActionButtons > button + button {
+    margin-left: 0.25rem;
 }
 
-button#exit-to-workshop {
+button#exit {
     float: right;
-}
-
-button#continue-patrol {
-
-}
-
-button#attack {
-
-}
-
-button#flee {
-    margin-left: 1rem;
 }
