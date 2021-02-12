@@ -2,45 +2,25 @@
 
 {% block content %}
 
-<main class='game-container'>
+<div class='Game'>
 
-    <header class='banner'>
-        {% block header %}
+    <header class='Banner'>
         <h1>Callisto</h1>
-        {% endblock %}
     </header>
 
-    <div class='row'>
+    <nav class='Navigation'>
+        <a href='{% url "deploy" %}'>Go to Outland</a>
+        <a href='{% url "workshop" %}'>Workshop</a>
+        <a href='{% url "equipment-all" %}'>Equipment</a>
+        <a href='{% url "store" %}'>Store</a>
+        <a href='{% url "logout" %}'>Logout</a>
+    </nav>
 
-        <section class='sidebar'>
-            {% block sidebar %}
-            <nav class='navigation'>
-                <h2 class='link-header'>Deploy</h2>
-                <ul class='link-list'>
-                    <li><a href='{% url "deploy" %}'>Go to Outland</a></li>
-                    <li>Go to Training Area</li>
-                </ul>
+    <main class='MainView'>
+        {% block main %}
+        {% endblock %}
+    </main>
 
-                <h2 class='link-header'>Customize</h2>
-                <ul class='link-list'>
-                    <li><a href='{% url "workshop" %}'>Workshop</a></li>
-                    <li><a href='{% url "equipment-all" %}'>Equipment</a></li>
-                    <li><a href='{% url "store" %}'>Store</a></li>
-                </ul>
-
-                <p>User: {{user}}</p>
-                <a href='{% url "logout" %}'>Logout</a>
-                {% endblock %}
-            </nav>
-        </section>
-
-        <section class='main'>
-            {% block main %}
-            {% endblock %}
-        </section>
-
-    </div>
-
-</main>
+</div>
 
 {% endblock %}

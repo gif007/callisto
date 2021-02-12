@@ -17,53 +17,48 @@ body {
 
 /* Main UI styles */
 
-.game-container {
+main.Game {
     display: flex;
-    flex-flow: column;
-    flex-grow: 1;
-    height: 100%;
+    flex-direction: column;
+    align-content: center;
 }
 
-.banner {
+header.Banner {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid black;
+    justify-content: space-around;
+    padding: 2rem;
+    background-color: grey;
+}
+
+h1.BannerText {
+    font-size: 1.5rem;
+    font-weight: bold;
     text-transform: uppercase;
+}
+
+nav.Navigation {
+    display: flex;
+    justify-content: space-around;
+    background-color: lightgrey;
+}
+
+nav.Navigation > a {
+    flex: 1;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 1rem;
+}
+
+nav.Navigation > a:hover {
+    background-color: grey;
+    text-decoration: underline;
 }
 
 .row {
     display: flex;
     flex-grow: 1;
-}
-
-.sidebar {
-    flex: 2;
-    border-right: 1px solid black;
-    padding: 0.5rem;
-}
-
-.navigation {
-    margin-top: 1rem;
-}
-
-.link-header {
-    font-weight: bold;
-    text-transform: uppercase;
-    padding-bottom: 0.5rem;
-}
-
-.link-list {
-    padding-bottom: 1rem;
-}
-
-.link-list> li {
-    padding-bottom: 0.25rem;
-}
-
-.main {
-    flex: 10;
 }
 
 .dotted-underline {
