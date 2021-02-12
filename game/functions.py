@@ -4,6 +4,7 @@ from .models import Enemy, User, MobileSuit, EventBattle, EventDiscovery, EventN
 
 def getMechByUser(request):
     """Returns the mobile suit of the logged in user"""
+
     return MobileSuit.objects.filter(
         controller=User.objects.filter(
         username=request.user.get_username()
@@ -14,20 +15,25 @@ def getMechByUser(request):
 def randomAction():
     """Returns a random action that occurs on patrol"""
     num = random.randint(1, 100)
-    if num <= 60:
+
+    if num <= 0:
         event = random.choice(EventNothing.objects.all())
-    elif num <= 70:
+
+    elif num <= 0:
         event = random.choice(EventDiscovery.objects.all())
+
     else:
+        from .Enemies import ENEMIES
+        template = random.choice(ENEMIES)
+        enemy = Enemy(**template)
+        enemy.save()
         event = EventBattle(
             name='You encounter an enemy!',
             desc='You may choose to engage the enemy or run away',
-            enemy=random.choice(Enemy.objects.all())
+            enemy=enemy
             )
 
-    action = event
-
-    return action
+    return event
 
 
 
