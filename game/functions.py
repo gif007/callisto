@@ -16,10 +16,10 @@ def randomAction():
     """Returns a random action that occurs on patrol"""
     num = random.randint(1, 100)
 
-    if num <= 0:
+    if num <= 60:
         event = random.choice(EventNothing.objects.all())
 
-    elif num <= 0:
+    elif num <= 70:
         event = random.choice(EventDiscovery.objects.all())
 
     else:

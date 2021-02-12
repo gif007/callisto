@@ -14,6 +14,7 @@ class Enemy(models.Model):
     max_hp = models.IntegerField(default=0)
     current_hp = models.IntegerField(default=0)
     firepower = models.IntegerField(default=0)
+    firerate = models.FloatField(default=1.0)
     armor = models.IntegerField(default=0)
 
 

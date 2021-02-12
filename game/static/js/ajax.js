@@ -20,7 +20,7 @@ $(document).ready(function(){
         }();
         });
 
-    function performAction(action) {
+    function performAction(rsp) {
         // $('#attack').remove();
         // $('#flee').remove();
         // $('.deployed-card-text').text(action['text']);
@@ -29,7 +29,7 @@ $(document).ready(function(){
         //     $('#get_action').remove();
         //     battle(action);
         // };
-        console.log(action);
+        console.log(rsp['action']);
     };
 
     function performAttack(action) {

@@ -89,6 +89,7 @@ class LeftArm(models.Model):
     desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
     firepower = models.IntegerField(default=0)
+    firerate = models.FloatField(default=1.0)
 
     def __str__(self):
         """Returns a string the represent the current instance"""
@@ -101,6 +102,7 @@ class RightArm(models.Model):
     desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
     firepower = models.IntegerField(default=0)
+    firerate = models.FloatField(default=1.0)
 
     def __str__(self):
         """Returns a string the represent the current instance"""

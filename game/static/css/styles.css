@@ -18,10 +18,11 @@ body {
 
 /* Main UI styles */
 
-main.Game {
+div.Game {
     display: flex;
     flex-direction: column;
     align-content: center;
+    height: 100%;
 }
 
 header.Banner {
@@ -56,6 +57,10 @@ nav.Navigation > a {
 
 nav.Navigation > a:hover {
     background-color: grey;
+}
+
+main.MainView {
+    flex: 1;
 }
 
 .row {
@@ -100,14 +105,14 @@ nav.Navigation > a:hover {
 
 /* Deployment / Outlands */
 
-.deployment-container {
+.Deployed {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
 }
 
-.deployed-card {
+.DeployedCard {
     width: 500px;
     height: 400px;
     display: flex;
@@ -118,12 +123,20 @@ nav.Navigation > a:hover {
     width: 150px;
     height: 150px;
     border: 1px solid black;
-    margin: 16px;
+    margin: 1rem;;
     flex-shrink: 0;
 }
 
-.deployed-card-text {
+.deployed-card-message {
     padding: 1rem;
+}
+
+.deployed-card-text {
+    margin: 1rem 0;
+}
+
+div.arena {
+    display: flex;
 }
 
 .deployed-card-button-group {
