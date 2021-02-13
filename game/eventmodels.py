@@ -15,7 +15,8 @@ class EventSuper(models.Model):
         """Returns a serialization for json"""
         return {
             'name': self.name,
-            'desc': self.desc
+            'desc': self.desc,
+            'img': self.img,
         }
 
     def __str__(self):
@@ -27,7 +28,10 @@ class EventNothing(EventSuper):
     """Describes an event about nothing"""
 
     def getActions(self):
-        return ['Continue']
+        return ['continue']
+
+
+
 
 
 class EventDiscovery(EventSuper):
@@ -35,14 +39,15 @@ class EventDiscovery(EventSuper):
     discovered = models.CharField(max_length=50, null=True, blank=True)
 
     def getActions(self):
-        return ['Continue', 'Examine']
+        return ['continue', 'examine']
 
     def serialize(self):
         """Returns a serialization for json"""
         return {
             'name': self.name,
             'desc': self.desc,
-            'discovered': self.discovered
+            'discovered': self.discovered,
+            'img': self.img,
         }
 
 
@@ -51,12 +56,13 @@ class EventBattle(EventSuper):
     enemy = models.ForeignKey('Enemy', on_delete=models.SET_NULL, null=True, blank=True)
 
     def getActions(self):
-        return ['Attack', 'Flee']
+        return ['attack', 'flee']
 
     def serialize(self):
         """Returns a serialization for json"""
         return {
             'name': self.name,
             'desc': self.desc,
-            'enemy': self.enemy.name
+            'enemy': self.enemy.name,
+            'img': self.img,
         }

@@ -3,24 +3,26 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 
 from .models import MobileSuit, Enemy, Helm, Chest, LeftArm, RightArm, Legs, Modifier
-from .functions import randomAction
+from .functions import randomEvent
 
 
 @login_required
-def get_action(request, action=randomAction):
+def get_action(request, action=randomEvent):
     """Returns a JSON object containing a random patrol action"""
     if not request.session.get('deployed', False):
         return HttpResponseRedirect(reverse('deploy'))
 
-    action = action()
+    event = action()
 
     try:
-        request.session['enemy'] = action.enemy.id
+        request.session['enemy'] = event.enemy.id
     except:
         pass
 
+
     data = {
-        'action': action.serialize(),
+        'event': event.serialize(),
+        'buttons': event.getActions(),
     }
 
     return JsonResponse(data)

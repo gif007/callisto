@@ -12,7 +12,7 @@ def getMechByUser(request):
         ).get()
 
 
-def randomAction():
+def randomEvent():
     """Returns a random action that occurs on patrol"""
     num = random.randint(1, 100)
 
@@ -29,8 +29,9 @@ def randomAction():
         enemy.save()
         event = EventBattle(
             name='You encounter an enemy!',
-            desc='You may choose to engage the enemy or run away',
-            enemy=enemy
+            desc='You have been attacked by a %s' % enemy.name,
+            enemy=enemy,
+            img=enemy.img
             )
 
     return event

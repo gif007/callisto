@@ -18,7 +18,7 @@ gelatinous_blob = {
     'firepower': 2,
     'firerate': 0.5,
     'armor': 5,
-    'img': 'img/gelatinousblob.jpg',
+    'img': '/static/img/gelatinousblob.jpg',
 }
 
 ice_spider = {
@@ -29,7 +29,7 @@ ice_spider = {
     'firepower': 5,
     'firerate': 1.7,
     'armor': 30,
-    'img': 'img/icespider.jpg',
+    'img': '/static/img/icespider.jpg',
 }
 
 rock_spider = {
@@ -40,7 +40,7 @@ rock_spider = {
     'firepower': 5,
     'firerate': 2.2,
     'armor': 20,
-    'img': 'img/rockspider.jpg',
+    'img': '/static/img/rockspider.jpg',
 }
 
 eel = {
@@ -51,7 +51,7 @@ eel = {
     'firepower': 15,
     'firerate': 1,
     'armor': 10,
-    'img': 'img/eel.jpg',
+    'img': '/static/img/eel.jpg',
 }
 
 ENEMIES = [
