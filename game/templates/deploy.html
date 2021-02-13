@@ -1,11 +1,12 @@
 {% extends "game.html" %}
 
 {% block main %}
+{% load static %}
     <div class='Deployed'>
         <div class='DeployedCard'>
 
             <div class='row' id='header'>
-                <div class='DeployedCardImage'><img src='' id='img' /></div>
+                <div class='DeployedCardImage'><img src="{% static 'img/moonterrain1.jpg' %}" id='img' /></div>
                 <div class='DeployedCardMessage'>
                     <h2 class='DeployedCardTitle' id='title'>Deployed</h2>
                     <p class='DeployedCardText' id='desc'>You have been deployed to the Outlands.</p>
@@ -40,7 +41,6 @@
 {% endblock %}
 
 {% block script %}
-{% load static %}
 <script src="{% static 'js/ajax.js' %}"></script>
 <script>
     document.querySelector('#exit').addEventListener('click', function(){
