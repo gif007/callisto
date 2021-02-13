@@ -5,6 +5,7 @@ class EventSuper(models.Model):
     """Describes an Event that occurs in the Outlands"""
     name = models.CharField(max_length=50, null=True, blank=True)
     desc = models.TextField(null=True, blank=True)
+    img = models.CharField(max_length=100, null=True, blank=True)
 
     def getActions(self):
         """Returns a list of actions to be utilized by front-end"""

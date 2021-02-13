@@ -16,6 +16,7 @@ class Enemy(models.Model):
     firepower = models.IntegerField(default=0)
     firerate = models.FloatField(default=1.0)
     armor = models.IntegerField(default=0)
+    img = models.CharField(max_length=100, null=True, blank=True)
 
 
     def __str__(self):
