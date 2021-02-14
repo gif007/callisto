@@ -66,17 +66,22 @@ main.MainView {
 
 .row {
     display: flex;
-    /* flex-grow: 1; */
 }
 
 .dotted-underline {
     border-bottom: 1px dotted black;
 }
 
-
 /* Workshop Area */
 
-.welcome-message {
+div.Workshop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+header.WorkshopHeader {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,21 +90,21 @@ main.MainView {
     font-size: 1.25rem;
 }
 
-.mech-card {
+div.MechCard {
     margin: 1rem;
 }
 
-.mech-banner {
+h2.MechBanner {
     padding-bottom: 1rem;
     text-transform: uppercase;
     text-decoration: underline;
 }
 
-.mech-equipped {
+ul.MechEquipment {
     margin-bottom: 1.5rem;
 }
 
-.mech-equipped > li, .mech-stats > li {
+ul.MechEquipment > li, ul.MechStatBlock > li {
     margin-bottom: 0.25rem;
 }
 
