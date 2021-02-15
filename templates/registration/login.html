@@ -1,22 +1,24 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<div class='LoginContainer'>
 
   {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    <p class='LoginError'>Your username and password didn't match. Please try again.</p>
   {% endif %}
 
   {% if next %}
     {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
+      <p class='LoginError'>Your account doesn't have access to this page. To proceed,
       please login with an account that has access.</p>
     {% else %}
-      <p>Please login to see this page.</p>
+      <p class='LoginError'>Please login to see this page.</p>
     {% endif %}
   {% endif %}
 
-  <form method="post" action="{% url 'login' %}">
+  <form method="post" action="{% url 'login' %}" class='LoginForm'>
     {% csrf_token %}
+    <h2 style='text-align: center; margin-bottom: 1rem;'>Please Login</h2>
     <table>
       <tr>
         <td>{{ form.username.label_tag }}</td>
@@ -30,8 +32,10 @@
     <input type="submit" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
+</div>
 
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
+  <!-- {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Lost password?</a></p> -->
 
 {% endblock %}

@@ -24,3 +24,15 @@
 </div>
 
 {% endblock %}
+
+{% block script %}
+<script>
+    window.onload = function() {
+        const banner = document.querySelector('h1.BannerText');
+        banner.addEventListener('click', function(){
+            window.location = '/game';
+        })
+    }
+</script>
+
+{% endblock %}

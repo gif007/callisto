@@ -38,13 +38,11 @@
             
         </div>
     </div>
-{% endblock %}
 
-{% block script %}
-<script src="{% static 'js/ajax.js' %}"></script>
-<script>
-    document.querySelector('#exit').addEventListener('click', function(){
-        window.location = '/game/deploy/flee';
-    });
-</script>
+    <script src="{% static 'js/ajax.js' %}"></script>
+    <script>
+        document.querySelector('#exit').addEventListener('click', function(){
+            window.location = '/game/deploy/flee';
+        });
+    </script>
 {% endblock %}
