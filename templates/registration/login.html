@@ -18,18 +18,18 @@
 
   <form method="post" action="{% url 'login' %}" class='LoginForm'>
     {% csrf_token %}
-    <h2 style='text-align: center; margin-bottom: 1rem;'>Welcome</h2>
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="login" />
+    <h2 class='LoginFormBanner'>Welcome</h2>
+    <div>
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+    <div>
+      {{ form.password.label_tag }}
+      {{ form.password }}
+    </div>
+    <div id='submit'>
+      <input type="submit" value="login" />
+    </div>
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 </div>
