@@ -2,6 +2,7 @@
 
 {% block main %}
     <div class='Workshop'>
+        <!-- <span id='test'>Hello World</span> -->
         {% if mech %}
         <div class='MechCard'>
             <h2 class='MechCardBanner'>{{mech}}</h2>
@@ -47,6 +48,20 @@
     </div>
     
     <script>
+
+            // const test = document.querySelector('span#test');
+
+            // function moveSpan(e) {
+            //     let x = e.clientX;
+            //     let y = e.clientY;
+
+            //     test.style.left = x + 'px';
+            //     test.style.top = y + 'px';
+
+            //     console.log(x, y);
+            // }
+
+            // document.addEventListener('click', moveSpan);
        
             const equip = document.querySelector('h3#equip');
             const equipment = document.querySelector('div#equipment');

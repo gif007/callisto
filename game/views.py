@@ -31,7 +31,7 @@ def index(request):
     request.session['deployed'] = False
     request.session['enemy'] = None
 
-    return render(request, "game.html")
+    return render(request, "index.html")
 
 
 @login_required

@@ -20,3 +20,9 @@ urlpatterns += [
     path('deploy/flee/', api.flee, name='flee'),
     path('deploy/attack/', api.attack, name='attack'),
 ]
+
+
+# Equipment API
+# urlpatterns += [
+#     path('workshop/equipment/<str:typ>/<int:pk>', views.equipment, name='equipment'),
+# ]

@@ -88,7 +88,7 @@ function eventController(rsp) {
     }
 };
 
-function displayAttack(action) {
+function attackController(action) {
     // This displays the results of the attack round
 
     // update view
@@ -97,13 +97,13 @@ function displayAttack(action) {
 };
 
 
-function requestAttack() {
+function getAttack() {
     // This is called by the Attack button
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            displayAttack(JSON.parse(this.responseText));
+            attackController(JSON.parse(this.responseText));
         };
     };
 
