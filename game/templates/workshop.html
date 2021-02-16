@@ -7,29 +7,40 @@
             <h2 class='MechCardBanner'>{{mech}}</h2>
             <div class='MechCardTabs'>
                 <span class='Before'></span>
-                <h3 id='equip' class='MechCardActive'>Equipment</h3>
-                <h3 id='stats' class='MechCardInactive'>Stats</h3>
+                <h3 id='equip' class='MechCardEquipActive'>Equipment</h3>
+                <h3 id='stats' class='MechCardStatsInactive'>Stats</h3>
                 <span class='After'></span>
             </div>
             <div id='equipment' class='MechCardEquipment'>
-                <a href="{% url 'equipment' 'helm' mech.helm.id %}">{{mech.helm}}</a>
-                
-                <a href="{% url 'equipment' 'chest' mech.helm.id %}">{{mech.chest}}</a>
-                
-                <a href="{% url 'equipment' 'leftarm' mech.helm.id %}">{{mech.left_arm}}</a>
-                
-                <a href="{% url 'equipment' 'rightarm' mech.helm.id %}">{{mech.right_arm}}</a>
-                
-                <a href="{% url 'equipment' 'legs' mech.helm.id %}">{{mech.legs}}</a>
-                
+                <div id='helm'>
+                    <a href="{% url 'equipment' 'helm' mech.helm.id %}" title='{{mech.helm}}'></a>
+                </div>
+
+                <div id='chest'>
+                    <a href="{% url 'equipment' 'chest' mech.chest.id %}" title='{{mech.chest}}'></a>
+                </div>
+
+                <div id='larm'>
+                    <a href="{% url 'equipment' 'leftarm' mech.left_arm.id %}" title='{{mech.left_arm}}'></a>
+                </div>
+
+                <div id='rarm'>
+                    <a href="{% url 'equipment' 'rightarm' mech.right_arm.id %}" title='{{mech.right_arm}}'></a>
+                </div>
+
+                <div id='legs'>
+                    <a href="{% url 'equipment' 'legs' mech.legs.id %}" title='{{mech.legs}}'></a>
+                </div>
             </div>
             
             <div id='statblock' class='MechCardStats'>
+                <div>
                 <span>HP: {{mech.current_hp}}/{{mech.max_hp}}</span>
                 <span>Firepower: {{mech.get_firepower_value}}</span>
                 <span>Armor: {{mech.get_armor_value}}</span>
                 <span>Speed: {{mech.get_speed_value}}</span>
                 <span>Vision: {{mech.get_sight_value}}</span>
+                </div>
             </div>
         </div>
         {% endif %}
@@ -44,18 +55,18 @@
 
 
             equip.addEventListener('click', function(){
-                if (equip.className != 'MechCardActive') {
-                    equip.className = 'MechCardActive';
-                    stats.className = 'MechCardInactive';
+                if (equip.className != 'MechCardEquipActive') {
+                    equip.className = 'MechCardEquipActive';
+                    stats.className = 'MechCardStatsInactive';
                     equipment.style.display = 'grid';
                     statblock.style.display = 'none';
                 }
             })
 
             stats.addEventListener('click', function(){
-                if (stats.className != 'MechCardActive') {
-                    equip.className = 'MechCardInactive';
-                    stats.className = 'MechCardActive';
+                if (stats.className != 'MechCardStatsActive') {
+                    equip.className = 'MechCardEquipInactive';
+                    stats.className = 'MechCardStatsActive';
                     statblock.style.display = 'flex';
                     equipment.style.display = 'none';
                 }

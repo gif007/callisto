@@ -117,7 +117,7 @@ div.Workshop {
 
 div.MechCard {
     width: 600px;
-    height: 400px;
+    height: 475px;
     display: flex;
     flex-flow: column;
     background-color: rgba(211,211,211, 0.75);
@@ -143,23 +143,40 @@ div.MechCardTabs > h3 {
     font-weight: bold;
     font-size: 0.9rem;
     text-transform: uppercase;
-}
-
-h3.MechCardInactive {
-    border: 1px solid black;
     flex: 1;
     padding: 0.25rem;
+}
+
+h3.MechCardEquipInactive {
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-right: none;
     cursor: pointer;
 }
 
-h3.MechCardActive {
+h3.MechCardEquipActive {
     background-color: rgba(211,211,211, 0.6);
-    border-top: none;
     border-left: 1px solid black;
-    border-right: 1px solid black;
     border-bottom: 1px solid black;
-    flex: 1;
-    padding: 0.25rem;
+    border-top: none;
+    border-right: 1px solid black;
+}
+
+h3.MechCardStatsInactive {
+    border-left: none;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    cursor: pointer;
+}
+
+h3.MechCardStatsActive {
+    background-color: rgba(211,211,211, 0.6);
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: none;
+    border-right: 1px solid black;
 }
 
 span.Before {
@@ -174,30 +191,68 @@ span.After {
 
 div.MechCardEquipment {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 1rem;
     background-color: rgba(211,211,211, 0.6);
     border-radius: 0.5rem;
-    padding: 0.5rem;
-    margin: 1rem;
-    flex: 1;
+    width: 550px;
+    height: 360px;
+    margin: auto;
+    padding: 16px 95px;
 }
 
-div.MechCardEquipment > a {
-    background-color: white;
+div#helm {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+div#chest {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+div#larm {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+div#rarm {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+div#legs {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+div.MechCardEquipment > div {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+div.MechCardEquipment > div > a {
+    background-color: lightgray;
+    width: 100px;
+    height: 100px;
+}
+
 div.MechCardStats {
     display: none;
-    flex-direction: column;
+    align-content: center;
+    justify-content: center;
     background-color: rgba(211,211,211, 0.6);
     border-radius: 0.5rem;
-    padding: 0.5rem;
-    margin: 1rem;
-    flex: 1;
+    width: 550px;
+    height: 360px;
+    margin: auto;
+}
+
+div.MechCardStats > div {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
 }
 
 /* Deployment */
