@@ -110,38 +110,87 @@ main.MainView {
 
 div.Workshop {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-header.WorkshopHeader {
-    display: flex;
+    height: 100%;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
-    text-transform: uppercase;
-    font-size: 1.25rem;
 }
 
 div.MechCard {
-    margin: 1rem;
+    width: 600px;
+    height: 400px;
+    display: flex;
+    flex-flow: column;
+    background-color: rgba(211,211,211, 0.75);
+    border-radius: 1rem;
 }
 
-h2.MechBanner {
-    padding-bottom: 1rem;
+h2.MechCardBanner {
+    background-color: rgba(211,211,211, 0.6);
+    border-radius: 1rem 1rem 0 0;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    text-decoration: underline;
 }
 
-ul.MechEquipment {
-    margin-bottom: 1.5rem;
+div.MechCardTabs {
+    display: flex;
 }
 
-ul.MechEquipment > li, ul.MechStatBlock > li {
-    margin-bottom: 0.25rem;
+div.MechCardTabs > h3 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
+h3.MechCardInactive {
+    border: 1px solid black;
+    flex: 1;
+    padding: 0.25rem;
+    cursor: pointer;
+}
+
+h3.MechCardActive {
+    background-color: rgba(211,211,211, 0.6);
+    border-top: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    flex: 1;
+    padding: 0.25rem;
+}
+
+span.Before {
+    border-top: 1px solid black;
+    flex: 1;
+}
+
+span.After {
+    border-top: 1px solid black;
+    flex: 12;
+}
+
+div.MechCardEquipment {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(211,211,211, 0.6);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem;
+    flex: 1;
+}
+
+div.MechCardStats {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(211,211,211, 0.6);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem;
+    flex: 1;
+}
 
 /* Deployment */
 
@@ -153,7 +202,7 @@ div.Deployed {
 }
 
 div.DeployedCard {
-    width: 500px;
+    width: 600px;
     height: 400px;
     display: flex;
     flex-flow: column;
@@ -186,6 +235,7 @@ div.DeployedCardMessage {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 div.DeployedCardMessage > h2, div.DeployedCardMessage > p {

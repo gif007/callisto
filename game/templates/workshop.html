@@ -2,39 +2,64 @@
 
 {% block main %}
     <div class='Workshop'>
-        <header class='WorkshopHeader'>Workshop</header>
         {% if mech %}
         <div class='MechCard'>
-            <h2 class='MechBanner'>MECH</h2>
-            <ul class='MechEquipment'>
-                <li>Name: {{mech}}</li>
-                <li title='A piece of gear that equips to the top of the mobile suit. Provides armor and range of vision.'>
-                    <span class='dotted-underline'>Helm:</span> <a href="{% url 'equipment' 'helm' mech.helm.id %}">{{mech.helm}}</a>
-                </li>
-                <li title='A piece of gear that equips to the torso of the mobile suit. Provides armor.'>
-                    <span class='dotted-underline'>Chest:</span> <a href="{% url 'equipment' 'chest' mech.helm.id %}">{{mech.chest}}</a>
-                </li>
-                <li title='A weapon that is equipped over the left arm of the mobile suit.'>
-                    <span class='dotted-underline'>Left Arm:</span> <a href="{% url 'equipment' 'leftarm' mech.helm.id %}">{{mech.left_arm}}</a>
-                </li>
-                <li title='A weapon that is equipped over the right arm of the mobile suit.'>
-                    <span class='dotted-underline'>Right Arm:</span> <a href="{% url 'equipment' 'rightarm' mech.helm.id %}">{{mech.right_arm}}</a>
-                </li>
-                <li title='A piece of gear that equips over the legs of the mobile suit. Provides armor and speed.'>
-                    <span class='dotted-underline'>Legs:</span> <a href="{% url 'equipment' 'legs' mech.helm.id %}">{{mech.legs}}</a>
-                </li>
-            </ul>
-
-            <h3 class='MechBanner'>Stats</h3>
-            <ul class='MechStatBlock'>
-                <li title='Hit points'><span class='dotted-underline'>HP</span>: {{mech.current_hp}}/{{mech.max_hp}}</li>
-                <li title='Total firepower from all equipped weapons'><span class='dotted-underline'>Firepower:</span> {{mech.get_firepower_value}}</li>
-                <li title='Total armor from all equipped gear'><span class='dotted-underline'>Armor:</span> {{mech.get_armor_value}}</li>
-                <li title='Mobile suit speed'><span class='dotted-underline'>Speed:</span> {{mech.get_speed_value}}</li>
-                <li title='Range of vision'><span class='dotted-underline'>Vision:</span> {{mech.get_sight_value}}</li>
-            </ul>
+            <h2 class='MechCardBanner'>{{mech}}</h2>
+            <div class='MechCardTabs'>
+                <span class='Before'></span>
+                <h3 id='equip' class='MechCardActive'>Equipment</h3>
+                <h3 id='stats' class='MechCardInactive'>Stats</h3>
+                <span class='After'></span>
+            </div>
+            <div id='equipment' class='MechCardEquipment'>
+                <a href="{% url 'equipment' 'helm' mech.helm.id %}">{{mech.helm}}</a>
+                
+                <a href="{% url 'equipment' 'chest' mech.helm.id %}">{{mech.chest}}</a>
+                
+                <a href="{% url 'equipment' 'leftarm' mech.helm.id %}">{{mech.left_arm}}</a>
+                
+                <a href="{% url 'equipment' 'rightarm' mech.helm.id %}">{{mech.right_arm}}</a>
+                
+                <a href="{% url 'equipment' 'legs' mech.helm.id %}">{{mech.legs}}</a>
+                
+            </div>
+            
+            <div id='statblock' class='MechCardStats'>
+                <span>HP: {{mech.current_hp}}/{{mech.max_hp}}</span>
+                <span>Firepower: {{mech.get_firepower_value}}</span>
+                <span>Armor: {{mech.get_armor_value}}</span>
+                <span>Speed: {{mech.get_speed_value}}</span>
+                <span>Vision: {{mech.get_sight_value}}</span>
+            </div>
         </div>
         {% endif %}
     </div>
     
+    <script>
+       
+            const equip = document.querySelector('h3#equip');
+            const equipment = document.querySelector('div#equipment');
+            const stats = document.querySelector('h3#stats');
+            const statblock = document.querySelector('div#statblock');
+
+
+            equip.addEventListener('click', function(){
+                if (equip.className != 'MechCardActive') {
+                    equip.className = 'MechCardActive';
+                    stats.className = 'MechCardInactive';
+                    equipment.style.display = 'flex';
+                    statblock.style.display = 'none';
+                }
+            })
+
+            stats.addEventListener('click', function(){
+                if (stats.className != 'MechCardActive') {
+                    equip.className = 'MechCardInactive';
+                    stats.className = 'MechCardActive';
+                    statblock.style.display = 'flex';
+                    equipment.style.display = 'none';
+                }
+            })
+        
+    </script>
 {% endblock %}

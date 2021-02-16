@@ -124,3 +124,5 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/game/'
 
 LOGIN_URL = '/login/'
+
+LOGOUT_REDIRECT_URL = '/'

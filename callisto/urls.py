@@ -21,14 +21,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('game/', include('game.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
 
 
 from django.views.generic import RedirectView
 urlpatterns += [
-    path('', RedirectView.as_view(url='game/', permanent=True)),
+    path('', RedirectView.as_view(url='login/', permanent=True)),
 ]
 
 
