@@ -173,13 +173,21 @@ span.After {
 }
 
 div.MechCardEquipment {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
     background-color: rgba(211,211,211, 0.6);
     border-radius: 0.5rem;
     padding: 0.5rem;
     margin: 1rem;
     flex: 1;
+}
+
+div.MechCardEquipment > a {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 div.MechCardStats {
