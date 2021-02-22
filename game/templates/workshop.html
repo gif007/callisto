@@ -12,25 +12,45 @@
                 <h3 id='stats' class='MechCardStatsInactive'>Stats</h3>
                 <span class='After'></span>
             </div>
-            <div id='equipment' class='MechCardEquipment'>
-                <div id='helm'>
-                    <a href="{% url 'equipment' 'helm' mech.helm.id %}" title='{{mech.helm}}'></a>
+            <div id='equipment' class='EquipmentRow'>
+                <div class='MechCardEquipment'>
+                    <div id='helm' title='{{mech.helm}}'>
+                        <img src='{{mech.helm.img}}'  item-id='{{mech.helm.id}}' item-type='helm' />
+                    </div>
+
+                    <div id='chest' title='{{mech.chest}}' >
+                        <img src='{{mech.chest.img}}' item-id='{{mech.chest.id}}' item-type='chest' />
+                    </div>
+
+                    <div id='larm' title='{{mech.left_arm}}'>
+                        <img src='{{mech.left_arm.img}}' item-id='{{mech.left_arm.id}}' item-type='leftarm' />
+                    </div>
+
+                    <div id='rarm' title='{{mech.right_arm}}'>
+                        <img src='{{mech.right_arm.img}}'  item-id='{{mech.right_arm.id}}' item-type='rightarm' />
+                    </div>
+
+                    <div id='legs' title='{{mech.legs}}'>
+                        <img src='{{mech.legs.img}}'  item-id='{{mech.legs.id}}' item-type='legs' />
+                    </div>
                 </div>
 
-                <div id='chest'>
-                    <a href="{% url 'equipment' 'chest' mech.chest.id %}" title='{{mech.chest}}'></a>
-                </div>
+                <div class='MechCardItem'>
+                    {% if piece.firepower %}
+                    <p>Firepower: {{piece.firepower}}</p>
+                    {% endif %}
 
-                <div id='larm'>
-                    <a href="{% url 'equipment' 'leftarm' mech.left_arm.id %}" title='{{mech.left_arm}}'></a>
-                </div>
+                    {% if piece.firerate %}
+                    <p>Firerate: {{piece.firerate}}</p>
+                    {% endif %}
 
-                <div id='rarm'>
-                    <a href="{% url 'equipment' 'rightarm' mech.right_arm.id %}" title='{{mech.right_arm}}'></a>
-                </div>
-
-                <div id='legs'>
-                    <a href="{% url 'equipment' 'legs' mech.legs.id %}" title='{{mech.legs}}'></a>
+                    {% if piece.sight %}
+                    <p>Vision: {{piece.sight}}</p>
+                    {% endif %}
+                    
+                    {% if piece.speed %}
+                    <p>Speed: {{piece.speed}}</p>
+                    {% endif %}
                 </div>
             </div>
             
@@ -48,44 +68,103 @@
     </div>
     
     <script>
+        const card = document.querySelector('div.MechCardEquipment');
 
-            // const test = document.querySelector('span#test');
+        card.addEventListener('click', e => {
+            let id = e.target.getAttribute('item-id');
+            let typ = e.target.getAttribute('item-type');
+            if (!id | !typ) {return};
+            let url = `/game/workshop/equipment/${typ}/${id}`;
+            getItem(url);
+            
+        })
 
-            // function moveSpan(e) {
-            //     let x = e.clientX;
-            //     let y = e.clientY;
+        function getItem(url) {
+            let xhttp = new XMLHttpRequest();
 
-            //     test.style.left = x + 'px';
-            //     test.style.top = y + 'px';
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    itemController(JSON.parse(this.responseText));
+                    // console.log(JSON.parse(this.responseText));
+                
+                };
+            };
 
-            //     console.log(x, y);
-            // }
+            xhttp.open('GET', url, true);
+            xhttp.send();
+        }
 
-            // document.addEventListener('click', moveSpan);
-       
-            const equip = document.querySelector('h3#equip');
-            const equipment = document.querySelector('div#equipment');
-            const stats = document.querySelector('h3#stats');
-            const statblock = document.querySelector('div#statblock');
+        function itemController(rsp) {
+            let name = document.createElement('h3');
+            let desc = document.createElement('p');
+            let armor = document.createElement('p');
 
+            name.innerText = `${rsp.name}`,
+            desc.innerText = `${rsp.desc}`,
+            armor.innerText = `Armor: ${rsp.armor}`
 
-            equip.addEventListener('click', function(){
-                if (equip.className != 'MechCardEquipActive') {
-                    equip.className = 'MechCardEquipActive';
-                    stats.className = 'MechCardStatsInactive';
-                    equipment.style.display = 'grid';
-                    statblock.style.display = 'none';
-                }
+            let descriptors = [name, desc, armor];
+
+            if (rsp.sight) {
+                let sight = document.createElement('p');
+                sight.innerText = `Sight: ${rsp.sight}`;
+                descriptors.push(sight);
+            }
+
+            if (rsp.speed) {
+                let speed = document.createElement('p');
+                speed.innerText = `Speed: ${rsp.speed}`;
+                descriptors.push(speed);
+            }
+
+            if (rsp.firepower) {
+                let firepower = document.createElement('p');
+                firepower.innerText = `Firepower: ${rsp.firepower}`;
+                descriptors.push(firepower);
+            }
+
+            if (rsp.firerate) {
+                let firerate = document.createElement('p');
+                firerate.innerText = `Firerate: ${rsp.firerate}`;
+                descriptors.push(firerate);
+            }
+
+            let container = document.querySelector('div.MechCardItem');
+
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+
+            descriptors.forEach(a=> {
+                container.append(a);
             })
 
-            stats.addEventListener('click', function(){
-                if (stats.className != 'MechCardStatsActive') {
-                    equip.className = 'MechCardEquipInactive';
-                    stats.className = 'MechCardStatsActive';
-                    statblock.style.display = 'flex';
-                    equipment.style.display = 'none';
-                }
-            })
-        
+            console.log(rsp);
+        }
+
+
+        const equip = document.querySelector('h3#equip');
+        const equipment = document.querySelector('div#equipment');
+        const stats = document.querySelector('h3#stats');
+        const statblock = document.querySelector('div#statblock');
+
+        equip.addEventListener('click', function(){
+            if (equip.className != 'MechCardEquipActive') {
+                equip.className = 'MechCardEquipActive';
+                stats.className = 'MechCardStatsInactive';
+                equipment.style.display = 'flex';
+                statblock.style.display = 'none';
+            }
+        })
+
+        stats.addEventListener('click', function(){
+            if (stats.className != 'MechCardStatsActive') {
+                equip.className = 'MechCardEquipInactive';
+                stats.className = 'MechCardStatsActive';
+                statblock.style.display = 'flex';
+                equipment.style.display = 'none';
+            }
+        })
+    
     </script>
 {% endblock %}

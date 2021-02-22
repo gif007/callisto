@@ -66,6 +66,16 @@ class Helm(models.Model):
     desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
     sight = models.IntegerField(default=0)
+    img = models.CharField(max_length=50, null=True, blank=True)
+
+    def serialize(self):
+        """Returns a serialization of attributes for JSON"""
+        return {
+            'name': self.name,
+            'desc': self.desc,
+            'armor': self.armor,
+            'sight': self.sight,
+        }
 
     def __str__(self):
         """Returns a string the represent the current instance"""
@@ -77,6 +87,15 @@ class Chest(models.Model):
     name = models.CharField(max_length=40, null=True)
     desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
+    img = models.CharField(max_length=50, null=True, blank=True)
+
+    def serialize(self):
+        """Returns a serialization of attributes for JSON"""
+        return {
+            'name': self.name,
+            'desc': self.desc,
+            'armor': self.armor,
+        }
 
     def __str__(self):
         """Returns a string the represent the current instance"""
@@ -90,6 +109,17 @@ class LeftArm(models.Model):
     armor = models.IntegerField(default=0)
     firepower = models.IntegerField(default=0)
     firerate = models.FloatField(default=1.0)
+    img = models.CharField(max_length=50, null=True, blank=True)
+
+    def serialize(self):
+        """Returns a serialization of attributes for JSON"""
+        return {
+            'name': self.name,
+            'desc': self.desc,
+            'armor': self.armor,
+            'firepower': self.firepower,
+            'firerate': self.firerate,
+        }
 
     def __str__(self):
         """Returns a string the represent the current instance"""
@@ -103,6 +133,17 @@ class RightArm(models.Model):
     armor = models.IntegerField(default=0)
     firepower = models.IntegerField(default=0)
     firerate = models.FloatField(default=1.0)
+    img = models.CharField(max_length=50, null=True, blank=True)
+
+    def serialize(self):
+        """Returns a serialization of attributes for JSON"""
+        return {
+            'name': self.name,
+            'desc': self.desc,
+            'armor': self.armor,
+            'firepower': self.firepower,
+            'firerate': self.firerate,
+        }
 
     def __str__(self):
         """Returns a string the represent the current instance"""
@@ -115,6 +156,16 @@ class Legs(models.Model):
     desc = models.TextField(null=True)
     armor = models.IntegerField(default=0)
     speed = models.IntegerField(default=0)
+    img = models.CharField(max_length=50, null=True, blank=True)
+
+    def serialize(self):
+        """Returns a serialization of attributes for JSON"""
+        return {
+            'name': self.name,
+            'desc': self.desc,
+            'armor': self.armor,
+            'speed': self.speed,
+        }
 
     def __str__(self):
         """Returns a string the represent the current instance"""
@@ -125,6 +176,7 @@ class Modifier(models.Model):
     """A piece of equipment that may grant user additional abilities"""
     name = models.CharField(max_length=40, null=True)
     desc = models.TextField(null=True)
+    img = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         """Returns a string the represent the current instance"""

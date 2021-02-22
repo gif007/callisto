@@ -6,6 +6,8 @@ from .models import MobileSuit, Enemy, Helm, Chest, LeftArm, RightArm, Legs, Mod
 from .functions import randomEvent
 
 
+### Deployment API ###
+
 @login_required
 def get_action(request, action=randomEvent):
     """Returns a JSON object containing a random patrol action"""
@@ -53,3 +55,27 @@ def flee(request):
     request.session['enemy'] = None
     
     return HttpResponseRedirect(reverse('workshop'))
+
+
+### Equipment API ###
+
+@login_required
+def equipment(request, typ, pk):
+    """Shows an individual piece of equipment"""
+    request.session['deployed'] = False
+    request.session['enemy'] = None
+
+    types = {
+        'helm': Helm,
+        'chest': Chest,
+        'leftarm': LeftArm,
+        'rightarm': RightArm,
+        'legs': Legs,
+        'modifier': Modifier,
+    }
+
+    piece = types[typ].objects.filter(id=pk).get()
+    
+    data = piece.serialize()
+    
+    return JsonResponse(data)

@@ -60,30 +60,6 @@ def equipment_all(request):
 
 
 @login_required
-def equipment(request, typ, pk):
-    """Shows an individual piece of equipment"""
-    request.session['deployed'] = False
-    request.session['enemy'] = None
-
-    types = {
-        'helm': Helm,
-        'chest': Chest,
-        'leftarm': LeftArm,
-        'rightarm': RightArm,
-        'legs': Legs,
-        'modifier': Modifier,
-    }
-
-    piece = types[typ].objects.filter(id=pk).get()
-    context = {
-        'piece': piece,
-        'type': typ,
-    }
-    
-    return render(request, 'equipment.html', context=context)
-
-
-@login_required
 def store(request):
     """A place where users may purchase new equipment"""
     request.session['deployed'] = False

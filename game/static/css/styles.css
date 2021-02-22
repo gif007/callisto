@@ -14,7 +14,7 @@ html {
 
 body {
     height: 100%;
-    background-image: url('/static/img/spacetile.jpg');
+    background-image: url('/static/img/bodybg.jpg');
     background-repeat: repeat;
     position: relative;
 }
@@ -26,7 +26,6 @@ div.LoginContainer {
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 }
 
@@ -40,18 +39,14 @@ p.LoginError {
 }
 
 form.LoginForm {
-    background-color: rgba(211,211,211, 0.9);
+    background-color: rgba(211,211,211, 0.6);
     border-radius: 1rem;
-    width: 50%;
-    padding: 3rem;
+    padding: 1rem;
+    margin-top: 12rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
-}
-
-h2.LoginFormBanner {
-    text-align: center;
 }
 
 form.LoginForm > div {
@@ -59,13 +54,47 @@ form.LoginForm > div {
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    width: 50%;
-    margin: 0.5rem auto;
+    width: 300px;
+    margin: 0 auto;
+}
+
+form.LoginForm > div + div {
+    margin-top: 16px;
+}
+
+form.LoginForm > div > input {
+    margin-top: 8px;
+}
+
+form.LoginForm > div > label {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: white;
+    font-weight: bold;
 }
 
 form.LoginForm > div#submit {
-    width: 25%;
+    width: 100px;
 }
+
+form.LoginForm > div#submit > input[type='submit']{
+    background-color: black;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+form.LoginForm > div#submit > input[type='submit']:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
 
 /* Main Game UI */
 
@@ -89,11 +118,12 @@ h1.BannerText {
     text-transform: uppercase;
     color: white;
     cursor: pointer;
+    text-shadow: 0 0 8px rgb(211,211,211);
 }
 
 nav.Navigation {
     display: flex;
-    background-color: rgba(211,211,211, 0.75);
+    background-color: rgba(211,211,211, 0.5);
 }
 
 nav.Navigation > a {
@@ -103,8 +133,9 @@ nav.Navigation > a {
     font-weight: bold;
     text-decoration: none;
     font-size: 0.9rem;
-    padding: 0.75rem;
+    padding: 0.5rem;
     text-transform: uppercase;
+    transition: 1s;
 }
 
 nav.Navigation > a + a {
@@ -112,7 +143,7 @@ nav.Navigation > a + a {
 }
 
 nav.Navigation > a:hover {
-    background-color: grey;
+    background-color: rgba(211,211,211, 1);
 }
 
 main.MainView {
@@ -138,11 +169,10 @@ div.Index {
 }
 
 div.WelcomeCard {
-    width: 600px;
+    width: 450px;
     height: 475px;
     display: flex;
     flex-flow: column;
-    background-color: rgba(211,211,211, 0.75);
     border-radius: 1rem;
 }
 
@@ -158,17 +188,14 @@ h2.WelcomeBanner {
 
 p.WelcomeText {
     background-color: rgba(211,211,211, 0.6);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 1rem auto;
-    width: 75%;
+    width: 100%;
+    border-radius: 0 0 1rem 1rem;
+    padding: 2rem 3rem;
+    margin-top: 0.5rem;
     flex: 1;
-}
-
-div.WelcomeImage {
-    display: flex;
-    align-content: center;
-    justify-content: center;
+    font-weight: bold;
+    font-style: italic;
+    line-height: 1.25;
 }
 
 
@@ -203,7 +230,6 @@ h2.MechCardBanner {
     padding: 0.75rem;
     text-align: center;
     font-weight: bold;
-    font-size: 0.9rem;
     text-transform: uppercase;
 }
 
@@ -262,16 +288,18 @@ span.After {
     flex: 12;
 }
 
+div.EquipmentRow {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
 div.MechCardEquipment {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    row-gap: 1rem;
-    background-color: rgba(211,211,211, 0.6);
-    border-radius: 0.5rem;
-    width: 550px;
-    height: 360px;
-    margin: auto;
-    padding: 16px 95px;
+    width: 332px;
+    height: 332px;
 }
 
 div#helm {
@@ -303,12 +331,15 @@ div.MechCardEquipment > div {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
-div.MechCardEquipment > div > a {
+div.MechCardItem {
+    width: 220px;
+    height: 250px;
     border: 1px solid black;
-    width: 100px;
-    height: 100px;
+    margin-left: 1rem;
+    padding: 1rem;
 }
 
 div.MechCardStats {
