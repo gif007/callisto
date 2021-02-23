@@ -5,7 +5,7 @@
 <div class='Game'>
 
     <header class='Banner'>
-        <h1 class='BannerText'>Callisto</h1>
+        <a href='/game'><h1 class='BannerText'>Callisto</h1></a>
     </header>
 
     <nav class='Navigation'>
@@ -22,17 +22,5 @@
     </main>
 
 </div>
-
-{% endblock %}
-
-{% block script %}
-<script>
-    window.onload = function() {
-        const banner = document.querySelector('h1.BannerText');
-        banner.addEventListener('click', function(){
-            window.location = '/game';
-        })
-    }
-</script>
 
 {% endblock %}

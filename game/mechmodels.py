@@ -36,6 +36,15 @@ class MobileSuit(models.Model):
         return firepower_value
 
 
+    def get_firerate_value(self):
+        """Returns the sum of all firerate"""
+        firerate_value = 0
+        firerate_value += self.left_arm.firerate if self.left_arm else 0
+        firerate_value += self.right_arm.firerate if self.right_arm else 0
+
+        return firerate_value
+
+
     def get_speed_value(self):
         """Returns suit speed"""
         return self.legs.speed if self.legs else 0

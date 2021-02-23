@@ -15,9 +15,10 @@ from . import api
 
 # Deployment API
 urlpatterns += [
-    path('deploy/get_action/', api.get_action, name='get-action'),
+    path('deploy/event/', api.event, name='get-action'),
     path('deploy/flee/', api.flee, name='flee'),
     path('deploy/attack/', api.attack, name='attack'),
+    path('deploy/attack-round/', api.round, name='attack-round'),
 ]
 
 

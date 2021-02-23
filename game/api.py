@@ -9,7 +9,7 @@ from .functions import randomEvent
 ### Deployment API ###
 
 @login_required
-def get_action(request, action=randomEvent):
+def event(request, action=randomEvent):
     """Returns a JSON object containing a random patrol action"""
     if not request.session.get('deployed', False):
         return HttpResponseRedirect(reverse('deploy'))
@@ -36,13 +36,28 @@ def attack(request):
     mech = MobileSuit.objects.filter(id=request.session['mech']).get()
     enemy = Enemy.objects.filter(id=request.session['enemy']).get()
 
-    mech_health = '%s/%s' % (mech.current_hp, mech.max_hp)
-    enemy_health = '%s/%s' % (enemy.current_hp, enemy.max_hp)
+    mech_health = '%s / %s' % (mech.current_hp, mech.max_hp)
+    enemy_health = '%s / %s' % (enemy.current_hp, enemy.max_hp)
 
     data = {
-        'mech_health': mech_health,
-        'enemy_health': enemy_health,
-        'enemy': enemy.name
+        'mech': {
+            'health': mech_health,
+            'img': '/static/img/tinset/tinhelm.png',
+        },
+        'enemy': {
+            'name': enemy.name,
+            'img': enemy.img,
+            'health': enemy_health,
+        },
+    }
+
+    return JsonResponse(data)
+
+
+def round(request):
+    """Call a round of battle"""
+    data = {
+        'move': 'You and the enemy flail at each other!',
     }
 
     return JsonResponse(data)

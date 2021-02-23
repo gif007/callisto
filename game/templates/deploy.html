@@ -15,8 +15,14 @@
 
             <div id='view' class='row'>
                 <div class='Arena'>
-                    <!-- <div id='enemy'>Enemy!</div>
-                    <div id='mech'>Mech!</div> -->
+                    <div id='enemystats' class='Stats'>
+                        <img id='enemyimg' />
+                        <p id='enemyhealth'></p>
+                    </div>
+                    <div id='mechstats' class='Stats'>
+                        <img id='mechimg' />
+                        <p id='mechhealth'></p>
+                    </div>
                 </div>
 
                 <div class='Loot'>
@@ -39,10 +45,5 @@
         </div>
     </div>
 
-    <script src="{% static 'js/ajax.js' %}"></script>
-    <script>
-        document.querySelector('#exit').addEventListener('click', function(){
-            window.location = '/game/deploy/flee';
-        });
-    </script>
+    <script src="{% static 'js/deploymentController.js' %}"></script>
 {% endblock %}
