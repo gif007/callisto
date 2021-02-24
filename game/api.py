@@ -33,6 +33,9 @@ def event(request, action=randomEvent):
 @login_required
 def attack(request):
     """Initiate an attack round between mech and enemy"""
+    if not request.session.get('deployed', False):
+        return HttpResponseRedirect(reverse('deploy'))
+
     mech = MobileSuit.objects.filter(id=request.session['mech']).get()
     enemy = Enemy.objects.filter(id=request.session['enemy']).get()
 
@@ -54,8 +57,12 @@ def attack(request):
     return JsonResponse(data)
 
 
-def round(request):
+@login_required
+def fight(request):
     """Call a round of battle"""
+    if not request.session.get('deployed', False):
+        return HttpResponseRedirect(reverse('deploy'))
+
     data = {
         'move': 'You and the enemy flail at each other!',
     }
@@ -70,6 +77,9 @@ def flee(request):
     request.session['enemy'] = None
     
     return HttpResponseRedirect(reverse('workshop'))
+
+
+
 
 
 ### Equipment API ###
