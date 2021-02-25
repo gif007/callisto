@@ -10,21 +10,14 @@ card.addEventListener('click', e => {
     
 })
 
+
 function getResource(url, cb, _class) {
-    // This is called by the Attack button
+    // Places a call to the deployment API for a json response
+    fetch(url)
+        .then(res => res.json())
+        .then(data => cb(data, _class))
+}
 
-
-    let xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            cb(JSON.parse(this.responseText), _class);
-        };
-    };
-
-    xhttp.open('GET', url, true);
-    xhttp.send();
-};
 
 function itemController(rsp, _class) {
     let name = document.createElement('h3');

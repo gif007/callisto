@@ -72,19 +72,13 @@ const ALL_BUTTONS = {
     'flee': ()=> fleeBtn(),
 };
 
+
 function getResource(url, cb) {
-    // This is called by the Attack button
-    let xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            cb(JSON.parse(this.responseText));
-        };
-    };
-
-    xhttp.open('GET', `/game/deploy/${url}/`, true);
-    xhttp.send();
-};
+    // Places a call to the deployment API for a json response
+    fetch(url)
+        .then(res => res.json())
+        .then(data => cb(data))
+}
 
 
 function eventController(res) {
