@@ -29,12 +29,27 @@ def randomEvent():
         enemy.save()
         event = EventBattle(
             name='You encounter an enemy!',
-            desc='You have been attacked by a %s' % enemy.name,
+            desc='You have been attacked by %s %s' % (enemy.prefix, enemy.name),
             enemy=enemy,
             img=enemy.img
             )
 
     return event
+
+
+def whoGoesFirst(mech, en):
+    """Determines whether the mech or the enemy goes first"""
+    import random
+    mech_roll = random.randint(1, mech.get_speed_value())
+    enemy_roll = random.randint(1, en.speed)
+    if mech_roll >= enemy_roll:
+        first_player = mech
+        second_player = en
+    else:
+        first_player = en
+        second_player = mech
+
+    return (first_player, second_player)
 
 
 

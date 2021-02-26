@@ -12,7 +12,7 @@ card.addEventListener('click', e => {
 
 
 function getResource(url, cb, _class) {
-    // Places a call to the deployment API for a json response
+    // Places a call to the equipment API for a json response
     fetch(url)
         .then(res => res.json())
         .then(data => cb(data, _class))

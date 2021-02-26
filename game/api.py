@@ -3,18 +3,18 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 
 from .models import MobileSuit, Enemy, Helm, Chest, LeftArm, RightArm, Legs, Modifier
-from .functions import randomEvent
+from .functions import randomEvent, whoGoesFirst
 
 
 ### Deployment API ###
 
 @login_required
-def event(request, action=randomEvent):
+def event(request):
     """Returns a JSON object containing a random patrol action"""
     if not request.session.get('deployed', False):
         return HttpResponseRedirect(reverse('deploy'))
 
-    event = action()
+    event = randomEvent()
 
     try:
         request.session['enemy'] = event.enemy.id
@@ -42,6 +42,10 @@ def attack(request):
     mech_health = '%s / %s' % (mech.current_hp, mech.max_hp)
     enemy_health = '%s / %s' % (enemy.current_hp, enemy.max_hp)
 
+    first_player, second_player = whoGoesFirst(mech, enemy)
+    request.session['first_player'] = first_player.id
+    request.session['second_player'] = second_player.id
+
     data = {
         'mech': {
             'health': mech_health,
@@ -51,6 +55,10 @@ def attack(request):
             'name': enemy.name,
             'img': enemy.img,
             'health': enemy_health,
+        },
+        'combat_order': {
+            'firstPlayer': first_player.name,
+            'secondPlayer': second_player.name,
         },
     }
 
@@ -63,8 +71,17 @@ def fight(request):
     if not request.session.get('deployed', False):
         return HttpResponseRedirect(reverse('deploy'))
 
+    if request.session.get('first_player') == request.session.get('mech'):
+        first_player = MobileSuit.objects.filter(id=request.session.get('mech')).get()
+        second_player = Enemy.objects.filter(id=request.session.get('enemy')).get()
+    else:
+        first_player = Enemy.objects.filter(id=request.session.get('enemy')).get()
+        second_player = MobileSuit.objects.filter(id=request.session.get('mech')).get()
+
     data = {
         'move': 'You and the enemy flail at each other!',
+        'first_player': first_player.name,
+        'second_player': second_player.name,
     }
 
     return JsonResponse(data)

@@ -81,6 +81,14 @@ function getResource(url, cb) {
 }
 
 
+function wipeButtonGroup() {
+    // Empties the action button group
+    while (btngrp.firstChild) {
+        btngrp.removeChild(btngrp.firstChild);
+    }
+}
+
+
 function eventController(res) {
     // Updates the UI according to which event is received
     updateUI(res['event']);
@@ -108,13 +116,6 @@ function eventController(res) {
             let btn = ALL_BUTTONS[button]();
             btngrp.append(btn);
         })
-
-        function wipeButtonGroup() {
-            // Empties the action button group
-            while (btngrp.firstChild) {
-                btngrp.removeChild(btngrp.firstChild);
-            }
-        }
     }
 };
 
@@ -126,7 +127,7 @@ function attackController(res) {
     function updateUI(res) {
         // Updates top row of deployment UI to inform user of current event
         document.querySelector('h2#title').innerText = `Battle`;
-        document.querySelector('p#desc').innerText = `You have engaged the enemy!`;
+        document.querySelector('p#desc').innerText = `You have engaged the enemy!\n${res.combat_order.firstPlayer} goes first.`;
         document.querySelector('img#img').setAttribute('src', '/static/img/attacking.png');
 
         document.querySelector('div.Arena').style.display = 'flex';
@@ -147,21 +148,13 @@ function attackController(res) {
         let _continue = ALL_BUTTONS['attack-continue']();
         let flee = ALL_BUTTONS['flee']();
         btngrp.append(_continue, flee);
-
-
-        function wipeButtonGroup() {
-            // Empties the action button group
-            while (btngrp.firstChild) {
-                btngrp.removeChild(btngrp.firstChild);
-            }
         }
-    }
 
     console.log(res);
 };
 
 function attackRoundController(rsp) {
-    document.querySelector('p#desc').innerText = rsp.move;
+    document.querySelector('p#desc').innerText = `${rsp.first_player} attacks ${rsp.second_player} first!`;
     console.log(rsp.move);
 }
 
