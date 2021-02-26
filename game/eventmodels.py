@@ -56,7 +56,7 @@ class EventBattle(EventSuper):
     enemy = models.ForeignKey('Enemy', on_delete=models.SET_NULL, null=True, blank=True)
 
     def getActions(self):
-        return ['attack', 'flee']
+        return ['engage', 'flee']
 
     def serialize(self):
         """Returns a serialization for json"""

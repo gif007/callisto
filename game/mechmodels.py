@@ -25,10 +25,19 @@ class MobileSuit(models.Model):
         damage = random.randint(self.get_firepower_value()-3, self.get_firepower_value()+3)
         dps = damage * self.get_firerate_value()
         effective_damage = dps
-        opponent.current_hp -= effective_damage
+        opponent.damage(effective_damage)
         opponent.save()
 
         return opponent.current_hp
+
+
+    def damage(self, damage):
+        """Diminish health"""
+        mitigation = self.get_armor_value() / 100
+        damage_mitigated = damage * mitigation
+        effective_damage = round(damage - damage_mitigated)
+        self.current_hp -= effective_damage
+        self.save()
 
 
     def die(self):

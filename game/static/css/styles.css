@@ -357,7 +357,7 @@ div.MechCardStats {
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    background-color: rgba(211,211,211, 0.6);
+    background-color: rgba(211,211,211, 0.2);
     border-radius: 0.5rem;
     padding: 1rem;
     margin: auto;
@@ -368,16 +368,29 @@ div.MechCardStats > table {
 }
 
 div.MechCardStats > table > tbody > tr > * {
-    width: 150px;
+    width: 175px;
     padding: 0.5rem;
 }
 
 div.MechCardStats > table > tbody > tr > th {
+    font-weight: bold;
     text-align: left;
 }
 
 div.MechCardStats > table > tbody > tr > td {
     text-align: right;
+}
+
+span#healbutton {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    color: red;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: lowercase;
+    font-style: italic;
+    cursor: pointer;
 }
 
 

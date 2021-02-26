@@ -17,12 +17,13 @@ from . import api
 urlpatterns += [
     path('deploy/event/', api.event, name='get-action'),
     path('deploy/flee/', api.flee, name='flee'),
+    path('deploy/engage/', api.engage, name='engage'),
     path('deploy/attack/', api.attack, name='attack'),
-    path('deploy/attack-round/', api.fight, name='attack-round'),
 ]
 
 
-# Equipment API
+# Workshop API
 urlpatterns += [
     path('workshop/equipment/<str:typ>/<int:pk>', api.equipment, name='equipment'),
+    path('workshop/heal', api.heal, name='heal'),
 ]

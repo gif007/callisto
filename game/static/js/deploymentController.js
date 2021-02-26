@@ -12,28 +12,28 @@ function continueButton(){
 }
 
 
-function attackButton(){
+function engageButton(){
     // Return an attack button that initiates a battle
     let btn = document.createElement('button');
-    btn.innerHTML = 'Attack';
+    btn.innerHTML = 'Engage';
     btn.setAttribute('type', 'button');
 
     btn.addEventListener('click', ()=> {
-        getResource('attack', attackController);
+        getResource('engage', engageController);
     });
 
     return btn;
 }
 
 
-function attackContinueButton(){
+function attackButton(){
     // Return an attack button that calls a single round of battle
     let btn = document.createElement('button');
-    btn.innerHTML = 'Continue';
+    btn.innerHTML = 'Attack';
     btn.setAttribute('type', 'button');
 
     btn.addEventListener('click', ()=> {
-        getResource('attack-round', attackRoundController);
+        getResource('attack', attackController);
     });
 
     return btn;
@@ -71,8 +71,8 @@ function fleeButton(){
 // Pack buttons
 const ALL_BUTTONS = {
     'continue': ()=> continueButton(),
+    'engage': ()=> engageButton(),
     'attack': ()=> attackButton(),
-    'attack-continue': ()=> attackContinueButton(),
     'examine': ()=> examineButton(),
     'flee': ()=> fleeButton(),
 };
@@ -124,8 +124,8 @@ function eventController(res) {
     }
 };
 
-function attackController(res) {
-    // This displays the results of the attack round
+function engageController(res) {
+    // This displays the results of engaging the enemy
     updateUI(res);
     populateButtonGroup();
 
@@ -150,7 +150,7 @@ function attackController(res) {
         let btngrp = document.querySelector('div#btngrp');
         wipeButtonGroup();
 
-        let _continue = ALL_BUTTONS['attack-continue']();
+        let _continue = ALL_BUTTONS['attack']();
         let flee = ALL_BUTTONS['flee']();
         btngrp.append(_continue, flee);
         }
@@ -158,7 +158,7 @@ function attackController(res) {
     console.log(res);
 };
 
-function attackRoundController(res) {
+function attackController(res) {
     if (res.dead) {
         console.log(res.dead);
         return

@@ -31,10 +31,10 @@ def event(request):
 
 
 @login_required
-def attack(request):
+def engage(request):
     """Initiate an attack round between mech and enemy"""
     if not request.session.get('deployed', False):
-        return HttpResponseRedirect(reverse('deploy'))
+        return HttpResponseRedirect(reverse('workshop'))
 
     mech = MobileSuit.objects.filter(id=request.session['mech']).get()
     enemy = Enemy.objects.filter(id=request.session['enemy']).get()
@@ -66,10 +66,10 @@ def attack(request):
 
 
 @login_required
-def fight(request):
+def attack(request):
     """Call a round of battle"""
     if not request.session.get('deployed', False):
-        return HttpResponseRedirect(reverse('deploy'))
+        return HttpResponseRedirect(reverse('workshop'))
 
     try:
         enemy = Enemy.objects.filter(id=request.session.get('enemy')).get()
@@ -79,25 +79,22 @@ def fight(request):
         }
         return JsonResponse(data)
 
+    mech = MobileSuit.objects.filter(id=request.session.get('mech')).get()
+
     if request.session.get('first_player') == request.session.get('mech'):
-        first_player = MobileSuit.objects.filter(id=request.session.get('mech')).get()
-        second_player = Enemy.objects.filter(id=request.session.get('enemy')).get() #try/catch
+        first_player = mech
+        second_player = enemy
     else:
-        first_player = Enemy.objects.filter(id=request.session.get('enemy')).get() #try/catch
-        second_player = MobileSuit.objects.filter(id=request.session.get('mech')).get()
+        first_player = enemy
+        second_player = mech
 
     second_player_health = first_player.attack(second_player)
     if second_player_health <= 0:
-
         return second_player.die()
 
     first_player_health = second_player.attack(first_player)
     if first_player_health <= 0:
-
         return first_player.die()
-
-    mech = MobileSuit.objects.filter(id=request.session.get('mech')).get()
-    enemy = Enemy.objects.filter(id=request.session.get('enemy')).get()
 
     data = {
         'move': 'You and the enemy flail at each other!',
@@ -149,4 +146,21 @@ def equipment(request, typ, pk):
     
     data = piece.serialize()
     
+    return JsonResponse(data)
+
+
+@login_required
+def heal(request):
+    """Top up mech health"""
+    request.session['deployed'] = False
+    request.session['enemy'] = None
+
+    mech = MobileSuit.objects.filter(id=request.session['mech']).get()
+    mech.current_hp = mech.max_hp
+    mech.save()
+
+    data = {
+        'mech_health': mech.current_hp,
+    }
+
     return JsonResponse(data)

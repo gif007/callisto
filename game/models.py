@@ -28,10 +28,19 @@ class Enemy(models.Model):
         damage = random.randint(self.firepower-3, self.firepower+3)
         dps = damage * self.firerate
         effective_damage = dps
-        opponent.current_hp -= effective_damage
+        opponent.damage(effective_damage)
         opponent.save()
 
         return opponent.current_hp
+
+
+    def damage(self, damage):
+        """Diminish health"""
+        mitigation = self.armor / 100
+        damage_mitigated = damage * mitigation
+        effective_damage = round(damage - damage_mitigated)
+        self.current_hp -= effective_damage
+        self.save()
 
 
     def generateLoot(self):

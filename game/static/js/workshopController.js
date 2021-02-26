@@ -102,3 +102,11 @@ stats.addEventListener('click', function(){
         equipment.style.display = 'none';
     }
 })
+
+const healbutton = document.querySelector('span#healbutton');
+
+healbutton.addEventListener('click', ()=>{
+    fetch('/game/workshop/heal')
+        .then(res => res.json())
+        .then(data => document.querySelector('span#health').innerHTML = data.mech_health)
+})
