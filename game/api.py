@@ -73,15 +73,34 @@ def fight(request):
 
     if request.session.get('first_player') == request.session.get('mech'):
         first_player = MobileSuit.objects.filter(id=request.session.get('mech')).get()
-        second_player = Enemy.objects.filter(id=request.session.get('enemy')).get()
+        second_player = Enemy.objects.filter(id=request.session.get('enemy')).get() #try/catch
     else:
-        first_player = Enemy.objects.filter(id=request.session.get('enemy')).get()
+        first_player = Enemy.objects.filter(id=request.session.get('enemy')).get() #try/catch
         second_player = MobileSuit.objects.filter(id=request.session.get('mech')).get()
+
+    second_player_health = first_player.attack(second_player)
+    if second_player_health <= 0:
+        second_player.die()
+
+    first_player_health = second_player.attack(first_player)
+    if first_player_health <= 0:
+        first_player.die()
+
+    mech = MobileSuit.objects.filter(id=request.session.get('mech')).get()
+    enemy = Enemy.objects.filter(id=request.session.get('enemy')).get()
 
     data = {
         'move': 'You and the enemy flail at each other!',
-        'first_player': first_player.name,
-        'second_player': second_player.name,
+        'first_player': {
+            'name': first_player.name,
+            'health': first_player_health,
+        },
+        'second_player': {
+            'name': second_player.name,
+            'health': second_player_health,
+        },
+        'mech_health': '%s / %s' % (mech.current_hp, mech.max_hp),
+        'enemy_health': '%s / %s' % (enemy.current_hp, enemy.max_hp),
     }
 
     return JsonResponse(data)

@@ -153,9 +153,12 @@ function attackController(res) {
     console.log(res);
 };
 
-function attackRoundController(rsp) {
-    document.querySelector('p#desc').innerText = `${rsp.first_player} attacks ${rsp.second_player} first!`;
-    console.log(rsp.move);
+function attackRoundController(res) {
+    document.querySelector('p#desc').innerText = `${res.first_player.name} attacks ${res.second_player.name} first!`;
+    document.querySelector('p#enemyhealth').innerText = `${res.enemy_health}`;
+    document.querySelector('p#mechhealth').innerText = `${res.mech_health}`;
+
+    console.log(res);
 }
 
 

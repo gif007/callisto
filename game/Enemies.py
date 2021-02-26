@@ -8,7 +8,7 @@ gelatinous_blob = {
     'desc': 'A slimey creature with no fixed shape',
     'max_hp': 150,
     'current_hp': 150,
-    'firepower': 2,
+    'firepower': 4,
     'firerate': 0.5,
     'armor': 5,
     'speed': 1,

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import  User
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 class MobileSuit(models.Model):
@@ -14,6 +16,24 @@ class MobileSuit(models.Model):
     right_arm = models.ForeignKey('RightArm', on_delete=models.SET_NULL, null=True, blank=True)
     legs = models.ForeignKey('Legs', on_delete=models.SET_NULL, null=True, blank=True)
     modifiers = models.ManyToManyField('Modifier', blank=True)
+
+
+    def attack(self, opponent):
+        """Diminish opponents current health"""
+        import random
+        damage = random.randint(self.get_firepower_value()-3, self.get_firepower_value()+3)
+        dps = damage * self.get_firerate_value()
+        effective_damage = dps
+        opponent.current_hp -= effective_damage
+        opponent.save()
+
+        return opponent.current_hp
+
+
+    def die(self):
+        """Die and return to workshop"""
+
+        return HttpResponseRedirect(reverse('flee'))
 
 
     def get_equipped(self):
