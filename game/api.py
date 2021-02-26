@@ -71,6 +71,14 @@ def fight(request):
     if not request.session.get('deployed', False):
         return HttpResponseRedirect(reverse('deploy'))
 
+    try:
+        enemy = Enemy.objects.filter(id=request.session.get('enemy')).get()
+    except:
+        data = {
+            'dead': 'he dead',
+        }
+        return JsonResponse(data)
+
     if request.session.get('first_player') == request.session.get('mech'):
         first_player = MobileSuit.objects.filter(id=request.session.get('mech')).get()
         second_player = Enemy.objects.filter(id=request.session.get('enemy')).get() #try/catch
@@ -80,11 +88,13 @@ def fight(request):
 
     second_player_health = first_player.attack(second_player)
     if second_player_health <= 0:
-        second_player.die()
+
+        return second_player.die()
 
     first_player_health = second_player.attack(first_player)
     if first_player_health <= 0:
-        first_player.die()
+
+        return first_player.die()
 
     mech = MobileSuit.objects.filter(id=request.session.get('mech')).get()
     enemy = Enemy.objects.filter(id=request.session.get('enemy')).get()

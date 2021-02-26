@@ -47,9 +47,13 @@ class Enemy(models.Model):
     def die(self):
         """Called when felled in battle"""
         loot = self.generateLoot()
+        data = {
+            'loot': loot,
+            'enemy_health': '0 / %s' % (self.max_hp),
+        }
         self.delete()
 
-        return JsonResponse(loot)
+        return JsonResponse(data)
 
 
     def __str__(self):

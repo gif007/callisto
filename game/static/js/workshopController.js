@@ -25,10 +25,10 @@ function itemController(rsp, _class) {
     let desc = document.createElement('p');
     let armor = document.createElement('p');
 
-    name.innerText = `${rsp.name}`;
-    category.innerText = `${_class}`;
-    desc.innerText = `"${rsp.desc}"`;
-    armor.innerText = `+${rsp.armor} Armor`;
+    name.innerHTML = `${rsp.name}`;
+    category.innerHTML = `${_class}`;
+    desc.innerHTML = `"${rsp.desc}"`;
+    armor.innerHTML = `+${rsp.armor} Armor`;
 
     name.style.cssText = 'font-size: 1.125rem; font-weight: bold;';
 
@@ -38,25 +38,25 @@ function itemController(rsp, _class) {
 
     if (rsp.sight) {
         let sight = document.createElement('p');
-        sight.innerText = `+${rsp.sight} Sight`;
+        sight.innerHTML = `+${rsp.sight} Sight`;
         descriptors.push(sight);
     }
 
     if (rsp.speed) {
         let speed = document.createElement('p');
-        speed.innerText = `+${rsp.speed} Speed`;
+        speed.innerHTML = `+${rsp.speed} Speed`;
         descriptors.push(speed);
     }
 
     if (rsp.firepower) {
         let firepower = document.createElement('p');
-        firepower.innerText = `+${rsp.firepower} Firepower`;
+        firepower.innerHTML = `+${rsp.firepower} Firepower`;
         descriptors.push(firepower);
     }
 
     if (rsp.firerate) {
         let firerate = document.createElement('p');
-        firerate.innerText = `+${rsp.firerate} Firerate`;
+        firerate.innerHTML = `+${rsp.firerate} Firerate`;
         descriptors.push(firerate);
     }
 

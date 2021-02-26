@@ -1,7 +1,7 @@
-function continueBtn(){
+function continueButton(){
     // Return a continue button that calls for a random event
     let btn = document.createElement('button');
-    btn.innerText = 'Continue';
+    btn.innerHTML = 'Continue';
     btn.setAttribute('type', 'button');
 
     btn.addEventListener('click', ()=> {
@@ -11,10 +11,11 @@ function continueBtn(){
     return btn;
 }
 
-function attackBtn(){
+
+function attackButton(){
     // Return an attack button that initiates a battle
     let btn = document.createElement('button');
-    btn.innerText = 'Attack';
+    btn.innerHTML = 'Attack';
     btn.setAttribute('type', 'button');
 
     btn.addEventListener('click', ()=> {
@@ -24,10 +25,11 @@ function attackBtn(){
     return btn;
 }
 
-function attackContinueBtn(){
+
+function attackContinueButton(){
     // Return an attack button that calls a single round of battle
     let btn = document.createElement('button');
-    btn.innerText = 'Continue';
+    btn.innerHTML = 'Continue';
     btn.setAttribute('type', 'button');
 
     btn.addEventListener('click', ()=> {
@@ -37,10 +39,11 @@ function attackContinueBtn(){
     return btn;
 }
 
-function examineBtn(){
+
+function examineButton(){
     // Return an examination button that calls a detail of a Discovery event
     let btn = document.createElement('button');
-    btn.innerText = 'Examine';
+    btn.innerHTML = 'Examine';
     btn.setAttribute('type', 'button');
 
     btn.addEventListener('click', ()=> {
@@ -50,10 +53,11 @@ function examineBtn(){
     return btn;
 }
 
-function fleeBtn(){
+
+function fleeButton(){
     // Return a flee button that exits combat and returns user to workshop
     let btn = document.createElement('button');
-    btn.innerText = 'Flee';
+    btn.innerHTML = 'Flee';
     btn.setAttribute('type', 'button');
 
     btn.addEventListener('click', ()=> {
@@ -63,13 +67,14 @@ function fleeBtn(){
     return btn;
 }
 
+
 // Pack buttons
 const ALL_BUTTONS = {
-    'continue': ()=> continueBtn(),
-    'attack': ()=> attackBtn(),
-    'attack-continue': ()=> attackContinueBtn(),
-    'examine': ()=> examineBtn(),
-    'flee': ()=> fleeBtn(),
+    'continue': ()=> continueButton(),
+    'attack': ()=> attackButton(),
+    'attack-continue': ()=> attackContinueButton(),
+    'examine': ()=> examineButton(),
+    'flee': ()=> fleeButton(),
 };
 
 
@@ -101,8 +106,8 @@ function eventController(res) {
 
     function updateUI(event) {
         // Updates top row of deployment UI to inform user of current event
-        document.querySelector('h2#title').innerText = event['name'];
-        document.querySelector('p#desc').innerText = event['desc'];
+        document.querySelector('h2#title').innerHTML = event['name'];
+        document.querySelector('p#desc').innerHTML = event['desc'];
         document.querySelector('img#img').setAttribute('src', event['img']);
     }
 
@@ -126,18 +131,18 @@ function attackController(res) {
 
     function updateUI(res) {
         // Updates top row of deployment UI to inform user of current event
-        document.querySelector('h2#title').innerText = `Battle`;
-        document.querySelector('p#desc').innerText = `You have engaged the enemy!\n${res.combat_order.firstPlayer} goes first.`;
+        document.querySelector('h2#title').innerHTML = `Battle`;
+        document.querySelector('p#desc').innerHTML = `You have engaged the enemy!\n${res.combat_order.firstPlayer} goes first.`;
         document.querySelector('img#img').setAttribute('src', '/static/img/attacking.png');
 
         document.querySelector('div.Arena').style.display = 'flex';
 
         document.querySelector('img#enemyimg').setAttribute('src', res.enemy.img);
-        document.querySelector('p#enemyhealth').innerText = `${res.enemy.health}`;
+        document.querySelector('p#enemyhealth').innerHTML = `${res.enemy.health}`;
 
 
         document.querySelector('img#mechimg').setAttribute('src', res.mech.img);
-        document.querySelector('p#mechhealth').innerText = `${res.mech.health}`;
+        document.querySelector('p#mechhealth').innerHTML = `${res.mech.health}`;
 
     }
 
@@ -154,9 +159,27 @@ function attackController(res) {
 };
 
 function attackRoundController(res) {
-    document.querySelector('p#desc').innerText = `${res.first_player.name} attacks ${res.second_player.name} first!`;
-    document.querySelector('p#enemyhealth').innerText = `${res.enemy_health}`;
-    document.querySelector('p#mechhealth').innerText = `${res.mech_health}`;
+    if (res.dead) {
+        console.log(res.dead);
+        return
+    }
+
+    if (res.mechdied) {
+        window.location = '/game/deploy/flee';
+        return
+    }
+
+    if (res.loot) {
+        for (loot in res.loot) {
+            console.log(loot + ': ' + res.loot[loot]);
+        }
+        document.querySelector('p#enemyhealth').innerHTML = `${res.enemy_health}`;
+        
+        return ;
+    }
+    document.querySelector('p#desc').innerHTML = `${res.first_player.name} attacks ${res.second_player.name} first!`;
+    document.querySelector('p#enemyhealth').innerHTML = `${res.enemy_health}`;
+    document.querySelector('p#mechhealth').innerHTML = `${res.mech_health}`;
 
     console.log(res);
 }

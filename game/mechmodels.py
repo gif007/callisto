@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import  User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.http import JsonResponse
 
 
 class MobileSuit(models.Model):
@@ -32,8 +33,14 @@ class MobileSuit(models.Model):
 
     def die(self):
         """Die and return to workshop"""
+        data = {
+            'mechdied': 'mechdied',
+        }
 
-        return HttpResponseRedirect(reverse('flee'))
+        self.current_hp = 1
+        self.save()
+
+        return JsonResponse(data)
 
 
     def get_equipped(self):

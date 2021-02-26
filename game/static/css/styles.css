@@ -368,7 +368,7 @@ div.MechCardStats > table {
 }
 
 div.MechCardStats > table > tbody > tr > * {
-    width: 100px;
+    width: 150px;
     padding: 0.5rem;
 }
 
