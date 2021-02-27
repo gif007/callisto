@@ -1,5 +1,6 @@
 import random
 from .models import Enemy, User, MobileSuit, EventBattle, EventDiscovery, EventNothing
+from .enemies import ENEMIES
 
 
 def getMechByUser(request):
@@ -23,7 +24,6 @@ def randomEvent():
         event = random.choice(EventDiscovery.objects.all())
 
     else:
-        from .Enemies import ENEMIES
         template = random.choice(ENEMIES)
         enemy = Enemy(**template)
         enemy.save()
@@ -43,13 +43,9 @@ def whoGoesFirst(mech, en):
     mech_roll = random.randint(1, mech.get_speed_value())
     enemy_roll = random.randint(1, en.speed)
     if mech_roll >= enemy_roll:
-        first_player = mech
-        second_player = en
+        return mech, en
     else:
-        first_player = en
-        second_player = mech
-
-    return (first_player, second_player)
+        return en, mech
 
 
 

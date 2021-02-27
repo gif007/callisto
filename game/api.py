@@ -39,26 +39,24 @@ def engage(request):
     mech = MobileSuit.objects.filter(id=request.session['mech']).get()
     enemy = Enemy.objects.filter(id=request.session['enemy']).get()
 
-    mech_health = '%s / %s' % (mech.current_hp, mech.max_hp)
-    enemy_health = '%s / %s' % (enemy.current_hp, enemy.max_hp)
+    curr, _next = whoGoesFirst(mech, enemy)
 
-    first_player, second_player = whoGoesFirst(mech, enemy)
-    request.session['first_player'] = first_player.id
-    request.session['second_player'] = second_player.id
-
+    request.session['current_player'] = curr.id
+    request.session['next_player'] = _next.id
+    
     data = {
         'mech': {
-            'health': mech_health,
+            'health': mech.get_health(),
             'img': '/static/img/tinset/tinhelm.png',
         },
         'enemy': {
             'name': enemy.name,
             'img': enemy.img,
-            'health': enemy_health,
+            'health': enemy.get_health(),
         },
-        'combat_order': {
-            'firstPlayer': first_player.name,
-            'secondPlayer': second_player.name,
+        'currentPlayer': {
+            'name': curr.name,
+            'isMech': True if curr == mech else False,
         },
     }
 
@@ -81,33 +79,26 @@ def attack(request):
 
     mech = MobileSuit.objects.filter(id=request.session.get('mech')).get()
 
-    if request.session.get('first_player') == request.session.get('mech'):
-        first_player = mech
-        second_player = enemy
+    if request.session['current_player'] == mech.id:
+        curr, _next = mech, enemy
     else:
-        first_player = enemy
-        second_player = mech
+        curr, _next = enemy, mech
 
-    second_player_health = first_player.attack(second_player)
-    if second_player_health <= 0:
-        return second_player.die()
+    _next_health = curr.attack(_next)
 
-    first_player_health = second_player.attack(first_player)
-    if first_player_health <= 0:
-        return first_player.die()
+    if _next_health <= 0: # Wrap into attack()
+        return _next.die()
+
+    attacker = curr
+    curr, _next = _next, curr
+
+    request.session['current_player'] = curr.id # try putting this on one line
+    request.session['next_player'] = _next.id
 
     data = {
-        'move': 'You and the enemy flail at each other!',
-        'first_player': {
-            'name': first_player.name,
-            'health': first_player_health,
-        },
-        'second_player': {
-            'name': second_player.name,
-            'health': second_player_health,
-        },
-        'mech_health': '%s / %s' % (mech.current_hp, mech.max_hp),
-        'enemy_health': '%s / %s' % (enemy.current_hp, enemy.max_hp),
+        'mech_health': mech.get_health(),
+        'enemy_health': enemy.get_health(),
+        'isMech': True if attacker == mech else False,
     }
 
     return JsonResponse(data)

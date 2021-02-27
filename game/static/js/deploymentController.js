@@ -39,6 +39,21 @@ function attackButton(){
     return btn;
 }
 
+function fireButton(){
+    // Return a fire button that calls a round of battle on behalf of the mech
+    let btn = document.createElement('button');
+    btn.innerHTML = 'Fire';
+    btn.setAttribute('type', 'button');
+    btn.setAttribute('id', 'firebutton');
+    btn.style.cssText = 'width: 100%; margin-top: 1rem;';
+
+    btn.addEventListener('click', ()=>{
+        getResource('attack', attackController);
+    })
+
+    return btn
+}
+
 
 function examineButton(){
     // Return an examination button that calls a detail of a Discovery event
@@ -73,6 +88,7 @@ const ALL_BUTTONS = {
     'continue': ()=> continueButton(),
     'engage': ()=> engageButton(),
     'attack': ()=> attackButton(),
+    'fire': ()=> fireButton(),
     'examine': ()=> examineButton(),
     'flee': ()=> fleeButton(),
 };
@@ -127,12 +143,12 @@ function eventController(res) {
 function engageController(res) {
     // This displays the results of engaging the enemy
     updateUI(res);
-    populateButtonGroup();
+    wipeButtonGroup();
 
     function updateUI(res) {
         // Updates top row of deployment UI to inform user of current event
         document.querySelector('h2#title').innerHTML = `Battle`;
-        document.querySelector('p#desc').innerHTML = `You have engaged the enemy!\n${res.combat_order.firstPlayer} goes first.`;
+        document.querySelector('p#desc').innerHTML = `You have engaged the enemy!\n${res.currentPlayer.name} goes first.`;
         document.querySelector('img#img').setAttribute('src', '/static/img/attacking.png');
 
         document.querySelector('div.Arena').style.display = 'flex';
@@ -144,40 +160,57 @@ function engageController(res) {
         document.querySelector('img#mechimg').setAttribute('src', res.mech.img);
         document.querySelector('p#mechhealth').innerHTML = `${res.mech.health}`;
 
-    }
-
-    function populateButtonGroup() {
-        let btngrp = document.querySelector('div#btngrp');
-        wipeButtonGroup();
-
-        let _continue = ALL_BUTTONS['attack']();
-        let flee = ALL_BUTTONS['flee']();
-        btngrp.append(_continue, flee);
+        if (res.currentPlayer.isMech) {
+            let fireButton = ALL_BUTTONS['fire']();
+            document.querySelector('div#mechstats').appendChild(fireButton);
+            document.querySelector('img#enemyimg').classList.remove('Attacking');
+            document.querySelector('img#mechimg').classList.add('Attacking');
+        } else {
+            document.querySelector('img#mechimg').classList.remove('Attacking');
+            document.querySelector('img#enemyimg').classList.add('Attacking');
+            // call attack for enemy
         }
-
+    }
     console.log(res);
 };
 
 function attackController(res) {
-    if (res.dead) {
+    // Initiate a round of combat
+    if (res.dead) { // dummy code to handle enemy death gracefully until looting system is set up
         console.log(res.dead);
+        
         return
     }
 
-    if (res.mechdied) {
+    if (res.mechdied) { // You failed in combat and are sent back to the workshop
         window.location = '/game/deploy/flee';
         return
     }
 
     if (res.loot) {
-        for (loot in res.loot) {
-            console.log(loot + ': ' + res.loot[loot]);
-        }
+        // Dummy code to display dummy loot
         document.querySelector('p#enemyhealth').innerHTML = `${res.enemy_health}`;
+        document.querySelector('img#enemyimg').classList.remove('Attacking');
+        document.querySelector('img#mechimg').classList.add('Attacking');
+        let lootList = [];
+        for (loot in res.loot) {
+            lootList.push(`${loot}: ${res.loot[loot]}`);
+        };
+        let lootString = lootList.join(', ');
+        document.querySelector('p#desc').innerHTML = `Mech is victorious!<br />Loot: ${lootString}`;
         
         return ;
     }
-    document.querySelector('p#desc').innerHTML = `${res.first_player.name} attacks ${res.second_player.name} first!`;
+    if (res.isMech) {
+        document.querySelector('p#desc').innerHTML = `Mech is attacking`;
+        document.querySelector('img#enemyimg').classList.remove('Attacking');
+        document.querySelector('img#mechimg').classList.add('Attacking');
+    } else {
+        document.querySelector('p#desc').innerHTML = `Enemy is attacking`;
+        document.querySelector('img#mechimg').classList.remove('Attacking');
+        document.querySelector('img#enemyimg').classList.add('Attacking');
+    }
+
     document.querySelector('p#enemyhealth').innerHTML = `${res.enemy_health}`;
     document.querySelector('p#mechhealth').innerHTML = `${res.mech_health}`;
 

@@ -39,7 +39,6 @@ def workshop(request):
     """The workshop area where a user may look at their mech in closer detail"""
     try:
         mech = getMechByUser(request)
-    
     except:
         mech = None
 

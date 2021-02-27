@@ -457,9 +457,22 @@ p.DeployedCardText {
 div.Arena {
     display: none;
     justify-content: space-between;
-    padding: 2rem;
+    padding: 1rem 2rem;
     width: 100%;
 }
+
+img.Attacking {
+    animation: MoveUpDown 1s ease-in-out infinite;
+}
+
+@keyframes MoveUpDown {
+    0%, 100% {
+  
+    }
+    50% {
+      transform: translate(0, -1rem);
+    }
+  }
 
 div.Stats > img {
     height: 100px;
