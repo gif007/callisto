@@ -14,8 +14,18 @@ card.addEventListener('click', e => {
 function getResource(url, cb, _class) {
     // Places a call to the equipment API for a json response
     fetch(url)
-        .then(res => res.json())
-        .then(data => cb(data, _class))
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('The requested resource could not be reached');
+            }
+            return res.json();
+        })
+        .then(data => {
+            cb(data, _class);
+        })
+        .catch((err)=>{
+            console.log(err.message);
+        })
 }
 
 
