@@ -11,21 +11,20 @@ card.addEventListener('click', e => {
 })
 
 
-function getResource(url, cb, _class) {
+async function getResource(url, cb, _class) {
     // Places a call to the equipment API for a json response
-    fetch(url)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error('The requested resource could not be reached');
-            }
-            return res.json();
-        })
-        .then(data => {
+    try {
+        let response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error('The requested resource could not be found');
+        } else {
+            let data = await response.json();
             cb(data, _class);
-        })
-        .catch((err)=>{
-            console.log(err.message);
-        })
+        } 
+    } catch(err) {
+        console.log(err.message);
+    }
 }
 
 
@@ -111,12 +110,20 @@ stats.addEventListener('click', function(){
         statblock.style.display = 'flex';
         equipment.style.display = 'none';
     }
-})
+});
 
 const healbutton = document.querySelector('span#healbutton');
 
-healbutton.addEventListener('click', ()=>{
-    fetch('/game/workshop/heal')
-        .then(res => res.json())
-        .then(data => document.querySelector('span#health').innerHTML = data.mech_health)
-})
+healbutton.addEventListener('click', async ()=>{
+    try {
+        let resource = await fetch('/game/workshop/heal');
+        if (!resource.ok) {
+            throw new Error('The resource could not be found');
+        } else {
+            let data = await resource.json();
+            document.querySelector('span#health').innerHTML = data.mech_health;
+        }
+    } catch (err) {
+        console.log(err.message);
+    }
+});

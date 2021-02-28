@@ -94,11 +94,20 @@ const ALL_BUTTONS = {
 };
 
 
-function getResource(url, cb) {
+async function getResource(url, cb) {
     // Places a call to the deployment API for a json response
-    fetch(url)
-        .then(res => res.json())
-        .then(data => cb(data))
+    try {
+        let resource = await fetch(url);
+
+        if (!resource.ok) {
+            throw new Error('The requested resource could not be found');
+        } else {
+            let data = await resource.json();
+            cb(data);
+        }
+    } catch (err) {
+        console.log(err.message);
+    }
 }
 
 
