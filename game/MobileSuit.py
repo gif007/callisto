@@ -24,9 +24,8 @@ class MobileSuit(models.Model):
         dps = damage * self.get_firerate_value()
         effective_damage = dps
         opponent.damage(effective_damage)
-        opponent.save()
 
-        return opponent.current_hp
+        return
 
 
     def damage(self, damage):
@@ -35,19 +34,18 @@ class MobileSuit(models.Model):
         damage_mitigated = damage * mitigation
         effective_damage = round(damage - damage_mitigated)
         self.current_hp -= effective_damage
-        self.save()
+        if self.current_hp <=0 :
+            self.die()
+        else:
+            self.save()
 
 
     def die(self):
         """Die and return to workshop"""
-        data = {
-            'mechdied': 'mechdied',
-        }
-
-        self.current_hp = 1
+        self.current_hp = 0
         self.save()
 
-        return JsonResponse(data)
+        return
 
 
     def get_equipped(self):

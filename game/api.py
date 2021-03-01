@@ -69,14 +69,7 @@ def attack(request):
     if not request.session.get('deployed', False):
         return HttpResponseRedirect(reverse('workshop'))
 
-    try:
-        enemy = Enemy.objects.filter(id=request.session.get('enemy')).get()
-    except:
-        data = {
-            'dead': 'he dead',
-        }
-        return JsonResponse(data)
-
+    enemy = Enemy.objects.filter(id=request.session.get('enemy')).get()
     mech = MobileSuit.objects.filter(id=request.session.get('mech')).get()
 
     if request.session['current_player'] == mech.id:
@@ -84,21 +77,25 @@ def attack(request):
     else:
         curr, _next = enemy, mech
 
-    _next_health = curr.attack(_next)
-
-    if _next_health <= 0: # Wrap into attack()
-        return _next.die()
-
+    curr.attack(_next)
     attacker = curr
-    curr, _next = _next, curr
 
-    request.session['current_player'] = curr.id # try putting this on one line
-    request.session['next_player'] = _next.id
+    mechIsDead = True if mech.current_hp == 0 else False
+    enemyIsDead = True if enemy.current_hp == 0 else False
+
+    if not mechIsDead and not enemyIsDead: 
+        curr, _next = _next, curr
+        request.session['current_player'] = curr.id
+        request.session['next_player'] = _next.id
+    else:
+        enemy.delete()
 
     data = {
         'mech_health': mech.get_health(),
         'enemy_health': enemy.get_health(),
         'isMech': True if attacker == mech else False,
+        'mechIsDead': mechIsDead,
+        'enemyIsDead': enemyIsDead,
     }
 
     return JsonResponse(data)

@@ -185,39 +185,26 @@ function engageController(res) {
 
 function attackController(res) {
     // Initiate a round of combat
-    if (res.dead) { // dummy code to handle enemy death gracefully until looting system is set up
-        console.log(res.dead);
-        
-        return
-    }
-
-    if (res.mechdied) { // You failed in combat and are sent back to the workshop
-        window.location = '/game/deploy/flee';
-        return
-    }
-
-    if (res.loot) {
-        // Dummy code to display dummy loot
-        document.querySelector('p#enemyhealth').innerHTML = `${res.enemy_health}`;
-        document.querySelector('img#enemyimg').classList.remove('Attacking');
-        document.querySelector('img#mechimg').classList.add('Attacking');
-        let lootList = [];
-        for (loot in res.loot) {
-            lootList.push(`${loot}: ${res.loot[loot]}`);
-        };
-        let lootString = lootList.join(', ');
-        document.querySelector('p#desc').innerHTML = `Mech is victorious!<br />Loot: ${lootString}`;
-        
-        return ;
-    }
-    if (res.isMech) {
-        document.querySelector('p#desc').innerHTML = `Mech is attacking`;
-        document.querySelector('img#enemyimg').classList.remove('Attacking');
-        document.querySelector('img#mechimg').classList.add('Attacking');
-    } else {
-        document.querySelector('p#desc').innerHTML = `Enemy is attacking`;
+    if (res.mechIsDead) {
+        document.querySelector('p#desc').innerHTML = `Your poor mech has perished...`;
         document.querySelector('img#mechimg').classList.remove('Attacking');
         document.querySelector('img#enemyimg').classList.add('Attacking');
+        document.querySelector('button#firebutton').remove();
+    } else if (res.enemyIsDead) {
+        document.querySelector('p#desc').innerHTML = `Mech is victorious!`;
+        document.querySelector('img#enemyimg').classList.remove('Attacking');
+        document.querySelector('img#mechimg').classList.add('Attacking');
+        document.querySelector('button#firebutton').remove();
+    } else {
+        if (res.isMech) {
+            document.querySelector('p#desc').innerHTML = `Mech is attacking`;
+            document.querySelector('img#enemyimg').classList.remove('Attacking');
+            document.querySelector('img#mechimg').classList.add('Attacking');
+        } else {
+            document.querySelector('p#desc').innerHTML = `Enemy is attacking`;
+            document.querySelector('img#mechimg').classList.remove('Attacking');
+            document.querySelector('img#enemyimg').classList.add('Attacking');
+        }
     }
 
     document.querySelector('p#enemyhealth').innerHTML = `${res.enemy_health}`;
@@ -226,14 +213,9 @@ function attackController(res) {
     console.log(res);
 }
 
-
-window.onload = function(){
-    // Page has loaded
-    document.querySelector('button#continue').addEventListener('click', ()=> {
-        getResource('event', eventController);
-    });
-    document.querySelector('#exit').addEventListener('click', function(){
-        window.location = '/game/deploy/flee';
-    });
-
-};
+document.querySelector('button#continue').addEventListener('click', ()=> {
+    getResource('event', eventController);
+});
+document.querySelector('#exit').addEventListener('click', function(){
+    window.location = '/game/deploy/flee';
+});

@@ -22,9 +22,8 @@ class Enemy(models.Model):
         dps = damage * self.firerate
         effective_damage = dps
         opponent.damage(effective_damage)
-        opponent.save()
 
-        return opponent.current_hp
+        return
 
 
     def damage(self, damage):
@@ -33,7 +32,10 @@ class Enemy(models.Model):
         damage_mitigated = damage * mitigation
         effective_damage = round(damage - damage_mitigated)
         self.current_hp -= effective_damage
-        self.save()
+        if self.current_hp <= 0:
+            self.die()
+        else:
+            self.save()
 
 
     def generateLoot(self):
@@ -48,14 +50,11 @@ class Enemy(models.Model):
 
     def die(self):
         """Called when felled in battle"""
-        loot = self.generateLoot()
-        data = {
-            'loot': loot,
-            'enemy_health': '0 / %s' % (self.max_hp),
-        }
-        self.delete()
+        self.loot = self.generateLoot()
+        self.current_hp = 0
+        self.save()
 
-        return JsonResponse(data)
+        return
 
     def get_health(self):
         """Return current over max health"""
